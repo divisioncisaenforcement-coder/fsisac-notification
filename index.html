@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+    font-family: 'Times New Roman', Times, serif;
+  }
+  .document {
+    max-width: 850px;
+    width: 100%;
+    background: white;
+    padding: 50px 60px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* WATERMARK */
+  .watermark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-20deg);
+    font-size: 80px;
+    font-weight: bold;
+    color: rgba(200, 0, 0, 0.12);
+    white-space: nowrap;
+    pointer-events: none;
+    font-family: Arial, Helvetica, sans-serif;
+    letter-spacing: 10px;
+    text-transform: uppercase;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: #333;
+    border-bottom: 2px solid #1a1a2e;
+    padding-bottom: 8px;
+    margin-bottom: 18px;
+  }
+  .header-left { font-weight: bold; }
+  .header-right { font-weight: bold; }
+
+  .logo-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 12px;
+  }
+  .logo-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+  .logo-box img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: contain;
+    border: 2px solid #ddd;
+    background: white;
+  }
+  .logo-box span {
+    font-size: 11px;
+    font-weight: bold;
+    text-align: center;
+    color: #333;
+  }
+
+  .title {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 20px 0 4px;
+  }
+  .subtitle {
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    font-style: italic;
+    margin-bottom: 20px;
+  }
+  .ref-line {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    font-weight: bold;
+    margin: 8px 0 4px;
+  }
+  .subject-line {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 12px 0 18px;
+    text-transform: uppercase;
+    text-align: center;
+  }
+  .body-text {
+    font-size: 14px;
+    line-height: 1.7;
+    text-align: justify;
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-size: 15px;
+    font-weight: bold;
+    margin: 22px 0 10px;
+  }
+
+  .fee-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 14px 0 10px;
+    font-size: 14px;
+  }
+  .fee-table td, .fee-table th {
+    border: 1px solid #222;
+    padding: 8px 12px;
+  }
+  .fee-table th {
+    background: #f2f2f2;
+    font-weight: bold;
+    text-align: left;
+  }
+  .fee-table .total-row { font-weight: bold; }
+  .fee-table .right-align { text-align: right; }
+
+  .signature-section {
+    margin-top: 32px;
+    padding-top: 20px;
+    border-top: 2px solid #1a1a2e;
+  }
+  .sig-line { font-weight: bold; font-size: 15px; }
+  .sig-title { font-style: italic; font-size: 14px; font-weight: normal; }
+  .sig-org { font-size: 13px; }
+
+  .footer {
+    margin-top: 30px;
+    padding-top: 12px;
+    border-top: 1px solid #ccc;
+    font-size: 12px;
+    color: #444;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  @media (max-width: 600px) {
+    .document { padding: 20px; }
+    .watermark { font-size: 50px; letter-spacing: 5px; }
+    .logo-section { gap: 30px; }
+    .logo-box img { width: 65px; height: 65px; }
+    .fee-table { font-size: 12px; }
+    .fee-table td, .fee-table th { padding: 4px 6px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="document">
+
+  <!-- WATERMARK -->
+  <div class="watermark">CONFIDENTIAL</div>
+
+  <!-- HEADER -->
+  <div class="header">
+    <span class="header-left">File Reference: PB-142-WT1139</span>
+    <span class="header-right">Date: July 23, 2026</span>
+  </div>
+
+  <!-- LOGOS SECTION -->
+  <div class="logo-section">
+    <div class="logo-box">
+      <img src="https://i.ibb.co/YFYXpkmy/IMG-0244.jpg" alt="CISA Logo">
+      <span>CISA</span>
+    </div>
+    <div class="logo-box">
+      <img src="https://i.ibb.co/r24Xg5p4/IMG-0245.jpg" alt="FS-ISAC Logo">
+      <span>FS-ISAC</span>
+    </div>
+  </div>
+
+  <!-- TITLE -->
+  <div class="title">FINANCIAL SERVICES INFORMATION SHARING AND ANALYSIS CENTER (FS-ISAC)</div>
+  <div class="subtitle">Official Notification – Compliance Review Determination</div>
+
+  <!-- REFERENCE LINE -->
+  <div class="ref-line">
+    <span>File Reference: PB-142-WT1139</span>
+    <span>Date: July 23, 2026</span>
+  </div>
+
+  <!-- SUBJECT -->
+  <div class="subject-line">FINAL NOTICE: MANDATORY CYBERSECURITY INCIDENT RESPONSE FEE – COMPLIANCE DEADLINE</div>
+
+  <div class="body-text"><strong>TO:</strong> Beneficiary, File PB-142-WT1139</div>
+
+  <div class="body-text">
+    This correspondence serves as official notification regarding the outstanding compliance obligation associated with your file. This notice is issued by the <strong>Financial Services Information Sharing and Analysis Center (FS-ISAC)</strong>, in coordination with the <strong>Cybersecurity and Infrastructure Security Agency (CISA)</strong>, a component of the U.S. Department of Homeland Security.
+  </div>
+
+  <!-- SECTION I -->
+  <div class="section-title">I. BACKGROUND &amp; SOURCE OF REFERENCE</div>
+  <div class="body-text">
+    This notification is issued in response to a formal compliance review request submitted by <strong>First National Bank Texas</strong> to FS-ISAC on <strong>July 20, 2026</strong>. The bank provided a list of beneficiary files requiring enhanced due diligence verification, including your file (Reference: <strong>PB-142-WT1139</strong>).
+  </div>
+  <div class="body-text">
+    FS-ISAC has reviewed the transaction records provided by the bank and has determined that your file falls within the scope of this review.
+  </div>
+
+  <!-- SECTION II -->
+  <div class="section-title">II. JURISDICTIONAL AUTHORITY &amp; DETERMINATION</div>
+  <div class="body-text">
+    Pursuant to the authorities vested in CISA under the <strong>Cyber Incident Reporting for Critical Infrastructure Act of 2022 (CIRCIA)</strong>, 6 U.S.C. § 681 et seq., and the statutory authority of FS-ISAC as the designated financial sector intelligence sharing organization, your transaction has been identified as falling within the scope of transactions requiring enhanced due diligence and incident response verification.
+  </div>
+  <div class="body-text">
+    This determination is predicated upon documented transaction records and the processing window affected by the cybersecurity incident referenced in <strong>CISA Emergency Directive 26-03</strong> and <strong>FS-ISAC Threat Intelligence Bulletin 2026-07</strong>.
+  </div>
+
+  <!-- SECTION III -->
+  <div class="section-title">III. OFFICIAL STATEMENT — SCOPE OF REVIEW</div>
+  <div class="body-text">
+    This office has reviewed your file in accordance with the statutory authorities vested in the undersigned agencies. Our review is strictly limited to the documented transaction records, beneficiary information, and the originating source of the funds as reflected in the official filings provided by First National Bank Texas.
+  </div>
+  <div class="body-text"><strong>We do not inquire into your personal circumstances, financial standing, or emotional state.</strong></div>
+  <div class="body-text"><strong>We do not recognize any prior steps you may have taken.</strong></div>
+  <div class="body-text"><strong>We do not consider any payments made prior to this notice.</strong></div>
+  <div class="body-text"><strong>The sole question before this office is whether the outstanding balance has been cleared by the deadline.</strong></div>
+
+  <!-- SECTION IV -->
+  <div class="section-title">IV. OUTSTANDING FINANCIAL OBLIGATION</div>
+  <div class="body-text">The following fees have been assessed and remain outstanding:</div>
+
+  <table class="fee-table">
+    <tr><th>Fee Description</th><th>Amount</th></tr>
+    <tr><td>CISA Emergency Vulnerability Response Fee</td><td class="right-align">$188.00</td></tr>
+    <tr><td>FS-ISAC Threat Intelligence Sharing Fee</td><td class="right-align">$234.76</td></tr>
+    <tr><td>Third-Party Forensics &amp; Data Recovery Fee</td><td class="right-align">$290.53</td></tr>
+    <tr class="total-row"><td><strong>Total Outstanding Balance</strong></td><td class="right-align"><strong>$713.29</strong></td></tr>
+  </table>
+
+  <!-- SECTION V -->
+  <div class="section-title">V. PARTIAL PAYMENT ACCOMMODATION – GRANTED</div>
+  <div class="body-text">
+    Upon review of your file history and documented payments made since November 2025, this office has approved a <strong>partial payment arrangement</strong>. This accommodation is granted under the following terms:
+  </div>
+
+  <table class="fee-table">
+    <tr><th>Installment</th><th>Amount</th><th>Due Date</th></tr>
+    <tr><td>First</td><td class="right-align">$238.00</td><td>Within 2 business days</td></tr>
+    <tr><td>Second</td><td class="right-align">$238.00</td><td>Within 3 business days</td></tr>
+    <tr><td>Third</td><td class="right-align">$237.29</td><td>Within 5 business days</td></tr>
+    <tr class="total-row"><td><strong>Total</strong></td><td class="right-align"><strong>$713.29</strong></td><td><strong>Must be cleared by July 31, 2026</strong></td></tr>
+  </table>
+
+  <div class="body-text">
+    You may remit partial payments in any amount at any time, provided the full balance is cleared by the final deadline. Each payment will be recorded and applied to your outstanding balance.
+  </div>
+
+  <!-- SECTION VI -->
+  <div class="section-title">VI. CONSEQUENCES OF NON-COMPLIANCE &amp; FORFEITURE PROCEEDINGS</div>
+  <div class="body-text"><strong>Final Deadline: July 31, 2026</strong></div>
+  <div class="body-text">
+    Failure to clear the outstanding balance by the above deadline will result in the following enforcement actions:
+  </div>
+  <div class="body-text">1. <strong>Escalation to Enforcement Division</strong> — Your file will be immediately escalated to the CISA Enforcement Division and FS-ISAC Compliance Office for formal review and adjudication.</div>
+  <div class="body-text">2. <strong>Administrative Freeze</strong> — Your file will be placed under indefinite administrative hold pending the completion of enforcement proceedings. No further action will be taken on your behalf.</div>
+  <div class="body-text">3. <strong>Forfeiture to United States Treasury</strong> — Pursuant to 31 U.S.C. § 3729 and 6 U.S.C. § 681d, your file may be referred to the U.S. Attorney General for civil action, potentially resulting in forfeiture of your funds to the United States Treasury.</div>
+  <div class="body-text">4. <strong>Escheatment to State of Texas</strong> — Under Texas Property Code Chapter 74, unresolved funds held by financial institutions may be declared escheated and become the property of the State of Texas.</div>
+  <div class="body-text">5. <strong>DOJ Referral</strong> — Your file may be referred to the Department of Justice for further enforcement action, which may include civil penalties and potential criminal prosecution under 18 U.S.C. § 1001 (false statements) and 18 U.S.C. § 371 (conspiracy to defraud the United States).</div>
+
+  <!-- SECTION VII -->
+  <div class="section-title">VII. FINAL DETERMINATION — NO DISCRETIONARY REVIEW</div>
+  <div class="body-text">
+    The undersigned offices have reviewed this matter in accordance with applicable federal law and have reached a final determination. The outstanding balance must be cleared by <strong>July 31, 2026</strong>. No further review, appeal, or reconsideration of this determination shall be entertained. No extension shall be granted under any circumstances.
+  </div>
+  <div class="body-text">
+    You are advised not to submit any documentation regarding prior steps, payments, or communications. This office will not accept, review, or consider any such submissions. The sole remaining action required to complete your file is the satisfaction of the financial obligation stated herein.
+  </div>
+
+  <!-- SECTION VIII -->
+  <div class="section-title">VIII. COORDINATION &amp; OVERSIGHT</div>
+  <div class="body-text">
+    This notification has been reviewed and authorized for issuance by the <strong>Financial Services Sector Liaison</strong> at CISA, in coordination with the FS-ISAC Compliance Office. This role serves as the primary point of contact between the financial services sector and federal agencies, ensuring that all compliance determinations are consistent with current regulatory requirements and interagency protocols.
+  </div>
+
+  <!-- SECTION IX -->
+  <div class="section-title">IX. OFFICIAL INQUIRY PROCEDURE — CENTRALIZED CHANNEL</div>
+  <div class="body-text">
+    <strong>Please be advised that neither FS-ISAC nor CISA directly handles individual beneficiary inquiries regarding compliance determinations, payment processing, or file status updates. These agencies are not structured to provide case-specific support to individuals. All inquiries must be directed through the established centralized channel.</strong>
+  </div>
+  <div class="body-text">
+    <strong>Please note the following:</strong>
+  </div>
+  <div class="body-text">• <strong>FS-ISAC and CISA do not accept direct inquiries from individual beneficiaries.</strong></div>
+  <div class="body-text">• <strong>Any communication sent directly to these agencies regarding your file will be returned or redirected to the appropriate channel.</strong></div>
+  <div class="body-text">• <strong>All inquiries must reference your file number: PB-142-WT1139.</strong></div>
+  <div class="body-text">
+    <strong>The deadline of July 31, 2026, is final. No extensions will be granted under any circumstances. Failure to satisfy the outstanding obligation by the deadline will result in the enforcement actions outlined in Section VI of this notice.</strong>
+  </div>
+
+  <!-- SIGNATURE SECTION -->
+  <div class="signature-section">
+    <div class="body-text">
+      This notice is issued under the authority of the Financial Services Information Sharing and Analysis Center (FS-ISAC), in coordination with the Cybersecurity and Infrastructure Security Agency (CISA), a component of the U.S. Department of Homeland Security.
+    </div>
+    <br>
+    <div class="sig-line">Valerie Abend</div>
+    <div class="sig-title">Chief Executive Officer</div>
+    <div class="sig-org">Financial Services Information Sharing and Analysis Center (FS-ISAC)</div>
+    <br>
+    <div class="sig-line">Nick Andersen</div>
+    <div class="sig-title">Acting Director</div>
+    <div class="sig-org">Cybersecurity and Infrastructure Security Agency (CISA)</div>
+    <div class="sig-org">U.S. Department of Homeland Security</div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <span class="footer-left">Page 1 of 1</span>
+    <span class="footer-right">CONFIDENTIAL</span>
+  </div>
+
+</div>
+
+</body>
+</html>
